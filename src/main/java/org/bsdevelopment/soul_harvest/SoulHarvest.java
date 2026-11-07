@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import org.bsdevelopment.soul_harvest.registry.*;
 import org.slf4j.Logger;
 
 @Mod(SoulHarvest.MOD_ID)
@@ -12,5 +13,10 @@ public class SoulHarvest {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public SoulHarvest(IEventBus modEventBus, ModContainer modContainer) {
+        ModComponents.register(modEventBus);
+        ModAttachments.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModContainers.register(modEventBus);
     }
 }
