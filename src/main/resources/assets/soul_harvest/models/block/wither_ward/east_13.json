@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "soul_harvest:block/wither_ward_frame",
+    "t13": "soul_harvest:block/wither_ward/wither_ward_13"
+  },
+  "elements": [
+    {
+      "name": "east_13",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#t13",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

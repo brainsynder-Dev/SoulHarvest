@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "soul_harvest:block/wither_ward_frame",
+    "t14": "soul_harvest:block/wither_ward/wither_ward_14"
+  },
+  "elements": [
+    {
+      "name": "south_14",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#t14",
+          "cullface": "south"
+        }
+      }
+    }
+  ]
+}

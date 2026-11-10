@@ -40,10 +40,16 @@ repositories {
             includeGroup("curse.maven")
         }
     }
+    maven("https://maven.blamejared.com") {
+        content {
+            includeGroup("mezz.jei")
+        }
+    }
 }
 
 dependencies {
     compileOnly("curse.maven:jade-324717:8068368")
+    compileOnly("mezz.jei:jei-26.1.2-neoforge-api:29.53.0.115")
 }
 
 sourceSets.main {
@@ -112,6 +118,16 @@ val generateModMetadata = tasks.register<ProcessResources>("generateModMetadata"
 
 sourceSets.main.get().resources.srcDir(generateModMetadata)
 neoForge.ideSyncTask(generateModMetadata)
+
+tasks.register("runDataClient") {
+    group = "neoforge"
+    description = "Runs data generation, then launches the client."
+    dependsOn("runData", "runClient")
+}
+
+tasks.named("runClient") {
+    mustRunAfter("runData")
+}
 
 tasks.wrapper {
     distributionType = Wrapper.DistributionType.BIN

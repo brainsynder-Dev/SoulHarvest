@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "soul_harvest:block/wither_ward_frame",
+    "t11": "soul_harvest:block/wither_ward/wither_ward_11"
+  },
+  "elements": [
+    {
+      "name": "up_11",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#t11",
+          "cullface": "up"
+        }
+      }
+    }
+  ]
+}

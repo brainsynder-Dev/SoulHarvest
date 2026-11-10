@@ -1,0 +1,7 @@
+{
+  "parent": "soul_harvest:block/rift_pad",
+  "textures": {
+    "0": "soul_harvest:block/rift_pad_dormant",
+    "particle": "soul_harvest:block/rift_pad_dormant"
+  }
+}

@@ -26,14 +26,14 @@ public class BlockRegistration<BLOCK extends Block, ITEM extends Item, TILE exte
     public BlockRegistration(String name, Function<BlockBehaviour.Properties, BLOCK> blockFactory, BiFunction<BLOCK, Item.Properties, ITEM> itemFactory, BlockEntityType.BlockEntitySupplier<TILE> tileSupplier) {
         this.name = name;
         block = ModBlocks.BLOCKS.registerBlock(name, blockFactory);
-        item = ModItems.ITEMS.registerItem(name, props -> itemFactory.apply(block.get(), props));
+        item = ModItems.ITEMS.registerItem(name, props -> itemFactory.apply(block.get(), props.useBlockDescriptionPrefix()));
         tile = ModBlocks.TILE_ENTITIES.register(name, () -> new BlockEntityType<>(tileSupplier, block.get()));
     }
 
     public BlockRegistration(String name, Function<BlockBehaviour.Properties, BLOCK> blockFactory, BiFunction<BLOCK, Item.Properties, ITEM> itemFactory) {
         this.name = name;
         block = ModBlocks.BLOCKS.registerBlock(name, blockFactory);
-        item = ModItems.ITEMS.registerItem(name, props -> itemFactory.apply(block.get(), props));
+        item = ModItems.ITEMS.registerItem(name, props -> itemFactory.apply(block.get(), props.useBlockDescriptionPrefix()));
     }
 
     public String getName() {
