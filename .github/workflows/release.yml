@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Read the mod version
+        id: version
+        run: |
+          minecraft_version=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
+          mod_build=$(grep '^mod_build=' gradle.properties | cut -d= -f2)
+          echo "version=${minecraft_version}-${mod_build}" >> "$GITHUB_OUTPUT"
+
+      - name: Make sure the version has not been released
+        run: |
+          if git rev-parse -q --verify "refs/tags/${{ steps.version.outputs.version }}" > /dev/null; then
+            echo "Version ${{ steps.version.outputs.version }} is already released. Raise mod_build in gradle.properties first."
+            exit 1
+          fi
+
+      - name: Build the mod
+        run: ./gradlew runData build
+
+      - name: List the commit changes
+        run: |
+          previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -n "$previous_tag" ]; then
+            git log --no-merges --pretty=format:'- %s' "${previous_tag}..HEAD" > release_notes.md
+          else
+            git log --no-merges --pretty=format:'- %s' > release_notes.md
+          fi
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          body_path: release_notes.md
+          files: build/libs/soul_harvest-${{ steps.version.outputs.version }}.jar
+          fail_on_unmatched_files: true
