@@ -57,6 +57,7 @@ sourceSets.main {
         srcDir("src/generated/resources")
         exclude("**/*.bbmodel")
         exclude("src/generated/**/.cache")
+        exclude(".cache/**")
     }
 }
 
