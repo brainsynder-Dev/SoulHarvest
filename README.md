@@ -10,7 +10,7 @@ It is still in early development and more features will be added as I get more i
 
 ## Building
 ```bash
-./gradlew build
+./gradlew runData build
 ```
 
 ### Development Testing
