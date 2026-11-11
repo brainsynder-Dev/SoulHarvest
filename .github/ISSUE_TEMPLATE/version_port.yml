@@ -1,0 +1,46 @@
+name: Version Port
+description: You would like to see the mod ported to a different version
+title: '[Version Port]:'
+labels:
+  - 'Type: VERSION PORT'
+body:
+  - type: input
+    id: target-version
+    attributes:
+      label: Target Version
+      description: This is the version you want the mod ported to
+      placeholder: 'Example: 1.21.11'
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Tell me why you think it should be ported to this version
+      description: >-
+        In a few brief words please tell me why it should be ported to this
+        version
+      placeholder: 'Example: I am making a modpack for this version...'
+    validations:
+      required: true
+  - type: dropdown
+    id: already-asked
+    attributes:
+      label: 'Was this version already asked to be ported? '
+      description: >-
+        Check any
+        [OPEN](https://github.com/brainsynder-Dev/SoulHarvest/issues?q=state%3Aopen)
+        or
+        [CLOSED](https://github.com/brainsynder-Dev/SoulHarvest/issues?q=state%3Aclosed)
+        issues to see if it was already asked
+      options:
+        - Yes, It was already asked but I asked again
+        - Yes, It was asked but no response was given
+        - No, It was not asked yet
+        - No, This version was just released
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)

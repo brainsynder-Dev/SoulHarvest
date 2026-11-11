@@ -1,0 +1,74 @@
+name: Bug report
+description: You have found an issue with the mod!
+title: '[Issue]: '
+labels:
+  - 'Type: ISSUE'
+body:
+  - type: input
+    id: mod-version
+    attributes:
+      label: Mod Version
+      description: >-
+        You can find the version of the mod in the mods file name or in-game in
+        the mods button on the main menu.
+      placeholder: 26.1.2-1
+    validations:
+      required: true
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft Version
+      placeholder: 26.1.2
+    validations:
+      required: true
+  - type: input
+    id: platform-version
+    attributes:
+      label: Platform Version
+      description: >-
+        Your NeoForge version, you can get this from the main menu screen in the
+        bottom left corner of the screen.
+      placeholder: 26.1.2.124
+    validations:
+      required: true
+  - type: input
+    id: modpack
+    attributes:
+      label: Modpack
+      description: >-
+        If you are running a Modpack, please provide the name and version of the
+        pack.
+  - type: textarea
+    id: issue
+    attributes:
+      label: Describe the issue
+      description: >-
+        A clear and concise description of what the bug is, include any
+        screenshots/videos if possible
+      placeholder: 'Example: The altar is not work when I give it redstone'
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        Tell us how we can reproduce the issue, Please be as detailed as
+        possible
+      placeholder: >-
+        Example: Place redstone block, place altar on top of it, profit... I
+        hope...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log Files
+      description: >-
+        Link(s) to any log files that you can provide, typically,
+        /logs/debug.log -  /logs/latest.log - /crash-report/(latest report).txt
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)

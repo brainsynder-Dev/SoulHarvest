@@ -1,0 +1,36 @@
+name: Feature Request
+description: Would you like to request a feature to be added to the mod!
+title: '[Feature Request]: '
+labels:
+  - 'Type: FEATURE REQUEST'
+body:
+  - type: textarea
+    id: feature
+    attributes:
+      label: Describe the feature you'd like to have added
+      description: A detailed explanation of the suggestion, be as specific as possible
+      placeholder: 'Example: I would like it if you can add an overpowered block....'
+    validations:
+      required: true
+  - type: dropdown
+    id: suggestion-check
+    attributes:
+      label: Was this already suggested?
+      description: >-
+        Check any
+        [OPEN](https://github.com/brainsynder-Dev/SoulHarvest/issues?q=state%3Aopen)
+        or
+        [CLOSED](https://github.com/brainsynder-Dev/SoulHarvest/issues?q=state%3Aclosed)
+        issues to see if it was already suggested 
+      options:
+        - Yes, It was suggested
+        - Yes, it was but not the way I would like it
+        - No, not that I seen
+        - No, I didn't even look :P
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)
