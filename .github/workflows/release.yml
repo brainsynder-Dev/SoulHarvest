@@ -38,23 +38,9 @@ jobs:
             exit 1
           fi
 
-      - name: Build the mod
-        run: ./gradlew runData build
-
-      - name: List the commit changes
-        run: |
-          previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || true)
-          if [ -n "$previous_tag" ]; then
-            git log --no-merges --pretty=format:'- %s' "${previous_tag}..HEAD" > release_notes.md
-          else
-            git log --no-merges --pretty=format:'- %s' > release_notes.md
-          fi
-
-      - name: Publish the release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.version.outputs.version }}
-          name: ${{ steps.version.outputs.version }}
-          body_path: release_notes.md
-          files: build/libs/soul_harvest-${{ steps.version.outputs.version }}.jar
-          fail_on_unmatched_files: true
+      - name: Build and publish the mod
+        run: ./gradlew runData build publishMods
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

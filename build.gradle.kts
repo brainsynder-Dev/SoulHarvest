@@ -8,6 +8,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("net.neoforged.moddev") version "2.0.141"
+    id("me.modmuss50.mod-publish-plugin") version "2.2.1"
     idea
 }
 
@@ -148,6 +149,40 @@ publishing {
         maven {
             url = layout.projectDirectory.dir("repo").asFile.toURI()
         }
+    }
+}
+
+publishMods {
+    file = tasks.jar.flatMap { it.archiveFile }
+    changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
+    type = STABLE
+    displayName = modVersion
+    modLoaders.add("neoforge")
+
+    curseforge {
+        projectId = gradleProperty("curseforge_project_id")
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(gradleProperty("minecraft_version"))
+        javaVersions.add(JavaVersion.VERSION_25)
+        client = true
+        server = true
+        optional("jade", "jei")
+    }
+
+    modrinth {
+        projectId = gradleProperty("modrinth_project_id")
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(gradleProperty("minecraft_version"))
+        optional("jade", "jei")
+
+        environment.set(CLIENT_AND_SERVER)
+    }
+
+    github {
+        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+        repository = "brainsynder-Dev/SoulHarvest"
+        commitish = providers.environmentVariable("GITHUB_REF_NAME").orElse("master")
+        tagName = modVersion
     }
 }
 
