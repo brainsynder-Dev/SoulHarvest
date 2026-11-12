@@ -45,6 +45,10 @@ public class ModTextureMetaProvider implements DataProvider {
 
         for (int size = 1; size <= 9; size += 2) animate("block/soul_ash_sigil_%dx%d".formatted(size, size), 4, true);
 
+        animate("block/soul_bloom_top", 4, true);
+
+        for (int size = 1; size <= 9; size += 2) animate("block/soul_bloom_sigil_%dx%d".formatted(size, size), 4, true);
+
         animate("block/soulstream_pad", 2, true);
         animate("block/destination_pad", 3, true);
         animate("block/rift_pad", 2, true);

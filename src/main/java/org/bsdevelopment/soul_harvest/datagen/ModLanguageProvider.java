@@ -36,6 +36,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addItem(ModItems.SOUL_SAWBLADE.get(), "Soul Sawblade");
         addItem(ModItems.SOUL_PROBE.get(), "Soul Probe", new Translation("description", "This item is in development and not used yet"));
         addItem(ModItems.SOUL_ASH_SEED.get(), "Soul Ash Seed", new Translation("description", "Use on soil to grow a 5x5 of Soul Ash"));
+        addItem(ModItems.SOUL_BLOOM_SEED.get(), "Soul Bloom Seed", new Translation("description", "Use on soil to grow a 5x5 of Soul Bloom"));
         addItem(ModItems.SOUL_WAND.get(), "Soul Wand",
                 new Translation("linked", "Linked to altar at %s, %s, %s"),
                 new Translation("linked_destination", "Linked to destination pad at %s, %s, %s"),
@@ -65,6 +66,12 @@ public class ModLanguageProvider extends LanguageProvider {
                 new Translation("description.2", "Right click the center block with 4 Soul Crystals to activate the blocks"),
                 new Translation("description.3", " "),
                 new Translation("description.4", "Note: Mobs will only spawn on Soul Ash that has been activated")
+        );
+        addBlock(ModBlocks.SOUL_BLOOM.getBlock(), "Soul Bloom",
+                new Translation("description.1", "Spawns passive mobs when awakened as a 1x1, 3x3, 5x5, 7x7 or 9x9"),
+                new Translation("description.2", "Right click the center block with Soul Crystals to activate the blocks"),
+                new Translation("description.3", " "),
+                new Translation("description.4", "Note: Mobs will only spawn on activated Soul Bloom with a light level of 7 or higher")
         );
         addBlock(ModBlocks.WARDSTONE_TILES.getBlock(), "Wardstone Tiles");
         addBlock(ModBlocks.WITHER_WARD.getBlock(), "Wither Ward",
@@ -119,6 +126,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add("message.soul_harvest.sigil.incomplete", "No flat square of Soul Ash is centered here (1x1, 3x3, 5x5, 7x7 or 9x9).");
         add("message.soul_harvest.sigil.no_crystals", "Awakening this pad needs %s Soul Crystals.");
         add("message.soul_harvest.sigil.already_awakened", "This Soul Ash is already part of an awakened Sigil of Dread.");
+
+        add("message.soul_harvest.bloom_sigil.awakened", "The Sigil of Life awakens.");
+        add("message.soul_harvest.bloom_sigil.incomplete", "No flat square of Soul Bloom is centered here (1x1, 3x3, 5x5, 7x7 or 9x9).");
+        add("message.soul_harvest.bloom_sigil.no_crystals", "Awakening this pad needs %s Soul Crystals.");
+        add("message.soul_harvest.bloom_sigil.already_awakened", "This Soul Bloom is already part of an awakened Sigil of Life.");
 
         add("gui.soul_harvest.loot_extractor.priority", "Priority");
         add("gui.soul_harvest.loot_extractor.priority.description", "Higher numbers are filled first\nTies share items in turn\nArrows +/-1, Shift +/-10, scroll works too");

@@ -27,6 +27,10 @@ public class ModConfig {
     public static int soulAshSpawnInterval;
     public static int soulAshMaxEntities;
     public static boolean soulAshRedstoneUpdates;
+    public static boolean soulBloomBiomeSpawns;
+    public static int soulBloomSpawnInterval;
+    public static int soulBloomMaxEntities;
+    public static boolean soulBloomRedstoneUpdates;
     public static float riftPadSoundVolume;
     public static int riftPadSoundCooldown;
     public static int riftAnchorRange;
@@ -53,6 +57,21 @@ public class ModConfig {
         bind(builder
                 .comment("Should neighbor updates (such as redstone) next to an awakened Soul Ash pad trigger an extra spawn cycle?")
                 .define("redstone_updates", true), value -> soulAshRedstoneUpdates = value);
+        builder.pop();
+
+        builder.push("soul_bloom");
+        bind(builder
+                .comment("Should Soul Bloom spawn the animals of its biome? When false, or when the biome has no animals, the list in soul-bloom-mobs.json is used.")
+                .define("use_biome_spawns", true), value -> soulBloomBiomeSpawns = value);
+        bind(builder
+                .comment("Ticks between each spawn cycle of an awakened 5x5 Soul Bloom pad (20 ticks = 1 second). Other sizes scale with their area.")
+                .defineInRange("spawn_interval", 200, 20, 6000), value -> soulBloomSpawnInterval = value);
+        bind(builder
+                .comment("Maximum number of animals that can stand on an awakened 5x5 Soul Bloom pad before it stops spawning. Other sizes scale with their area.")
+                .defineInRange("max_entities", 4, 1, 64), value -> soulBloomMaxEntities = value);
+        bind(builder
+                .comment("Should neighbor updates (such as redstone) next to an awakened Soul Bloom pad trigger an extra spawn cycle?")
+                .define("redstone_updates", true), value -> soulBloomRedstoneUpdates = value);
         builder.pop();
 
         builder.push("rift_pad");

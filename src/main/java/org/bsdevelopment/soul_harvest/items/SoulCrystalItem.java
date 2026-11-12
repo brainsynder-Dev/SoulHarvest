@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.bsdevelopment.soul_harvest.blocks.SoulAshBlock;
+import org.bsdevelopment.soul_harvest.blocks.base.SpawnPadBlock;
 import org.bsdevelopment.soul_harvest.items.base.BaseItem;
 
 public class SoulCrystalItem extends BaseItem {
@@ -25,32 +25,32 @@ public class SoulCrystalItem extends BaseItem {
         Level level = context.getLevel();
         BlockPos center = context.getClickedPos();
         BlockState state = level.getBlockState(center);
-        if (player == null || !(state.getBlock() instanceof SoulAshBlock soulAsh)) return InteractionResult.PASS;
+        if (player == null || !(state.getBlock() instanceof SpawnPadBlock spawnPad)) return InteractionResult.PASS;
         if (!(level instanceof ServerLevel serverLevel)) return InteractionResult.SUCCESS;
 
-        if (state.getValue(SoulAshBlock.SIGIL) != 0) {
-            player.sendSystemMessage(Component.translatable("message.soul_harvest.sigil.already_awakened"));
+        if (state.getValue(SpawnPadBlock.SIGIL) != 0) {
+            player.sendSystemMessage(Component.translatable(spawnPad.getMessageKey("already_awakened")));
             return InteractionResult.FAIL;
         }
 
-        int size = soulAsh.findPadSize(level, center);
+        int size = spawnPad.findPadSize(level, center);
         if (size == 0) {
-            player.sendSystemMessage(Component.translatable("message.soul_harvest.sigil.incomplete"));
+            player.sendSystemMessage(Component.translatable(spawnPad.getMessageKey("incomplete")));
             return InteractionResult.FAIL;
         }
 
-        int crystalCost = SoulAshBlock.getCrystalCost(size);
+        int crystalCost = SpawnPadBlock.getCrystalCost(size);
         ItemStack crystals = context.getItemInHand();
         if (!player.hasInfiniteMaterials() && crystals.getCount() < crystalCost) {
-            player.sendSystemMessage(Component.translatable("message.soul_harvest.sigil.no_crystals", crystalCost));
+            player.sendSystemMessage(Component.translatable(spawnPad.getMessageKey("no_crystals"), crystalCost));
             return InteractionResult.FAIL;
         }
 
         crystals.consume(crystalCost, player);
 
-        soulAsh.awaken(serverLevel, center, size);
+        spawnPad.awaken(serverLevel, center, size);
         level.playSound(null, center, SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1f, 0.7f);
-        player.sendSystemMessage(Component.translatable("message.soul_harvest.sigil.awakened"));
+        player.sendSystemMessage(Component.translatable(spawnPad.getMessageKey("awakened")));
         return InteractionResult.SUCCESS;
     }
 }

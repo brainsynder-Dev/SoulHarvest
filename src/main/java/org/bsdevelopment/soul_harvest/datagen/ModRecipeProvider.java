@@ -78,6 +78,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('S', Items.SOUL_SOIL)
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
+
+        shaped(RecipeCategory.MISC, ModItems.SOUL_BLOOM_SEED.get())
+                .pattern("WGW")
+                .pattern("GXG")
+                .pattern("WSW")
+                .define('W', Items.WHEAT_SEEDS)
+                .define('G', Items.BONE_MEAL)
+                .define('X', ModItems.SOUL_CRYSTAL.get())
+                .define('S', Items.SOUL_SOIL)
+                .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
+                .save(output);
     }
 
     private void buildBlockRecipes() {

@@ -60,6 +60,12 @@ public class ModBlocks {
             BlockItemHandler::new
     );
 
+    public static final BlockRegistration<SoulBloomBlock, BlockItemHandler, ?> SOUL_BLOOM = new BlockRegistration<>(
+            "soul_bloom",
+            props -> new SoulBloomBlock(props.mapColor(MapColor.COLOR_CYAN).strength(0.6f).sound(SoundType.MOSS).isValidSpawn(SoulBloomBlock::onlyPassives)),
+            BlockItemHandler::new
+    );
+
     public static final BlockRegistration<Block, BlockItemHandler, ?> WARDSTONE_TILES = new BlockRegistration<>(
             "wardstone_tiles",
             props -> new Block(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),

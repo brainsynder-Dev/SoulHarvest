@@ -41,7 +41,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.WITHER_IMMUNE).add(ModBlocks.WITHER_WARD.getBlock());
         tag(BlockTags.DRAGON_IMMUNE).add(ModBlocks.WITHER_WARD.getBlock());
 
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOUL_ASH.getBlock());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOUL_ASH.getBlock(), ModBlocks.SOUL_BLOOM.getBlock());
 
         tag(ModTags.SOUL_ASH_CONVERTIBLE).addTag(BlockTags.SUBSTRATE_OVERWORLD);
     }

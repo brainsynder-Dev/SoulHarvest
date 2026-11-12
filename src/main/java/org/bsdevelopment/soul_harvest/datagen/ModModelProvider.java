@@ -10,11 +10,13 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.conditional.HasComponent;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -24,8 +26,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import org.bsdevelopment.soul_harvest.blocks.RiftPadBlock;
 import org.bsdevelopment.soul_harvest.blocks.SoulAshBlock;
+import org.bsdevelopment.soul_harvest.blocks.SoulBloomBlock;
 import org.bsdevelopment.soul_harvest.blocks.WatcherBricksBlock;
 import org.bsdevelopment.soul_harvest.blocks.base.RedstonePoweredBlock;
+import org.bsdevelopment.soul_harvest.blocks.base.SpawnPadBlock;
 import org.bsdevelopment.soul_harvest.client.render.WisdomVesselItemRenderer;
 import org.bsdevelopment.soul_harvest.registry.*;
 
@@ -59,9 +63,10 @@ public class ModModelProvider extends ModelProvider {
                 ModBlocks.SOUL_STEEL_BLOCK.getBlock(), ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock()).forEach(blockModels::createTrivialCube);
 
         SoulAshBlock soulAsh = ModBlocks.SOUL_ASH.getBlock();
-        Identifier soulAshModel = ModelTemplates.CUBE_ALL.create(soulAsh, TextureMapping.cube(soulAsh), blockModels.modelOutput);
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(soulAsh).with(PropertyDispatch.initial(SoulAshBlock.SIGIL).generate(sigilIndex -> BlockModelGenerators.plainVariant(sigilIndex == 0 ? soulAshModel : blockModel(getSigilModelName(sigilIndex))))));
-        blockModels.registerSimpleItemModel(soulAsh, soulAshModel);
+        createSpawnPad(blockModels, soulAsh, ModelTemplates.CUBE_ALL.create(soulAsh, TextureMapping.cube(soulAsh), blockModels.modelOutput));
+
+        SoulBloomBlock soulBloom = ModBlocks.SOUL_BLOOM.getBlock();
+        createSpawnPad(blockModels, soulBloom, ModelTemplates.CUBE_BOTTOM_TOP.create(soulBloom, TextureMapping.cubeBottomTop(soulBloom).put(TextureSlot.BOTTOM, new Material(Identifier.withDefaultNamespace("block/dirt"))), blockModels.modelOutput));
 
         Block wraithfire = ModBlocks.WRAITHFIRE.get();
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(wraithfire, BlockModelGenerators.variants(
@@ -104,7 +109,7 @@ public class ModModelProvider extends ModelProvider {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(liquidExperience, BlockModelGenerators.plainVariant(liquidExperienceModel)));
 
         List.of(ModItems.SOUL_CRYSTAL.get(), ModItems.SOUL_STEEL_INGOT.get(), ModItems.SOUL_STEEL_NUGGET.get(), ModItems.SOUL_SAWBLADE.get(),
-                ModItems.SOUL_ASH_SEED.get(), ModItems.BLANK_SOUL_RUNE.get(), ModItems.LOOTING_SOUL_RUNE.get(), ModItems.SMITE_SOUL_RUNE.get(), ModItems.SHARPNESS_SOUL_RUNE.get(),
+                ModItems.SOUL_ASH_SEED.get(), ModItems.SOUL_BLOOM_SEED.get(), ModItems.BLANK_SOUL_RUNE.get(), ModItems.LOOTING_SOUL_RUNE.get(), ModItems.SMITE_SOUL_RUNE.get(), ModItems.SHARPNESS_SOUL_RUNE.get(),
                 ModItems.SOUL_FLAME_RUNE.get(), ModItems.BEHEADING_SOUL_RUNE.get(), ModItems.BANE_SOUL_RUNE.get(), ModItems.SPEED_SOUL_RUNE.get(), ModItems.WISDOM_SOUL_RUNE.get()
         ).forEach(item -> itemModels.generateFlatItem(item, ModelTemplates.FLAT_ITEM));
 
@@ -129,10 +134,17 @@ public class ModModelProvider extends ModelProvider {
                         ItemModelUtils.plainModel(itemModels.createFlatItemModel(soulWand, ModelTemplates.FLAT_HANDHELD_ITEM))));
     }
 
-    private String getSigilModelName(int sigilIndex) {
-        int size = SoulAshBlock.getSigilSize(sigilIndex);
-        int piece = sigilIndex - SoulAshBlock.getSigilOffset(size) - 1;
-        return "soul_ash_sigil_%dx%d_%d_%d".formatted(size, size, piece % size, piece / size);
+    private void createSpawnPad(BlockModelGenerators blockModels, SpawnPadBlock spawnPad, Identifier sleepingModel) {
+        String blockName = BuiltInRegistries.BLOCK.getKey(spawnPad).getPath();
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(spawnPad).with(PropertyDispatch.initial(SpawnPadBlock.SIGIL).generate(sigilIndex -> {
+            if (sigilIndex == 0) return BlockModelGenerators.plainVariant(sleepingModel);
+
+            int size = SpawnPadBlock.getSigilSize(sigilIndex);
+            int piece = sigilIndex - SpawnPadBlock.getSigilOffset(size) - 1;
+
+            return BlockModelGenerators.plainVariant(blockModel("%s_sigil_%dx%d_%d_%d".formatted(blockName, size, size, piece % size, piece / size)));
+        })));
+        blockModels.registerSimpleItemModel(spawnPad, sleepingModel);
     }
 
     private void createConnectedBlock(BlockModelGenerators blockModels, Block block, String modelName) {
