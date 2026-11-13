@@ -14,5 +14,7 @@ public class ModParticleProvider extends ParticleDescriptionProvider {
     @Override
     protected void addDescriptions() {
         spriteSet(ModParticles.XP_SPARKLE.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "xp_sparkle"), 8, false);
+        spriteSet(ModParticles.BLOOM_BURST.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "bloom_burst"), 8, false);
+        spriteSet(ModParticles.BLOOM_PETAL.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "bloom_petal"), 4, false);
     }
 }

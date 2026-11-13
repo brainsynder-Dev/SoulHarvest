@@ -2,7 +2,6 @@ package org.bsdevelopment.soul_harvest.blocks.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -56,6 +55,8 @@ public abstract class SpawnPadBlock extends Block {
     protected abstract boolean allowRedstoneUpdates();
 
     protected abstract MobSpawnConfig getSpawnConfig();
+
+    protected abstract void playSpawnEffect(ServerLevel level, Entity spawnedMob);
 
     public static int getSigilSize(int sigilIndex) {
         int offset = 0;
@@ -237,9 +238,9 @@ public abstract class SpawnPadBlock extends Block {
             for (int attempt = 0; attempt < groupSize; attempt++) {
                 BlockPos spawnPos = center.offset(random.nextInt(size) - radius, 1, random.nextInt(size) - radius);
                 if (!isSpawnLightValid(level.getMaxLocalRawBrightness(spawnPos)) || !SpawnPlacements.isSpawnPositionOk(selection.type(), level, spawnPos)) continue;
-                if (selection.type().spawn(level, spawnPos, EntitySpawnReason.SPAWNER) == null) continue;
 
-                level.sendParticles(ParticleTypes.SOUL, spawnPos.getX() + 0.5, spawnPos.getY() + 0.5, spawnPos.getZ() + 0.5, 12, 0.3, 0.5, 0.3, 0.02);
+                Entity spawnedMob = selection.type().spawn(level, spawnPos, EntitySpawnReason.SPAWNER);
+                if (spawnedMob != null) playSpawnEffect(level, spawnedMob);
             }
         }
     }

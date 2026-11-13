@@ -1,6 +1,9 @@
 package org.bsdevelopment.soul_harvest.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.BlockGetter;
@@ -52,5 +55,10 @@ public class SoulAshBlock extends SpawnPadBlock {
     @Override
     protected MobSpawnConfig getSpawnConfig() {
         return ModConstants.SOUL_ASH_SPAWNS;
+    }
+
+    @Override
+    protected void playSpawnEffect(ServerLevel level, Entity spawnedMob) {
+        level.sendParticles(ParticleTypes.SOUL, spawnedMob.getX(), spawnedMob.getY() + 0.5, spawnedMob.getZ(), 12, 0.3, 0.5, 0.3, 0.02);
     }
 }
