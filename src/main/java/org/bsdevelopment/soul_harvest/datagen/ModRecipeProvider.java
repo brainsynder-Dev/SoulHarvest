@@ -198,6 +198,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
 
+        shaped(RecipeCategory.MISC, ModBlocks.SOUL_RITUAL_SHRINE.getBlock())
+                .pattern("KXK")
+                .pattern("RER")
+                .pattern("AAA")
+                .define('K', Items.CANDLE)
+                .define('X', ModItems.SOUL_CRYSTAL.get())
+                .define('R', ModBlocks.SOUL_ALTAR_BRICKS.getBlock())
+                .define('E', Items.EGG)
+                .define('A', ModBlocks.ALTAR_BRICKS.getBlock())
+                .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
+                .save(output);
+
         shaped(RecipeCategory.MISC, ModBlocks.WISDOM_VESSEL.getBlock())
                 .pattern("ACA")
                 .pattern("GBG")

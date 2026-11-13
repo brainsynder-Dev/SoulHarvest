@@ -55,6 +55,10 @@ public class ModTextureMetaProvider implements DataProvider {
         animate("block/rift_anchor_emblem", 3, true);
         animate("block/rift_anchor_pearl", 3, true);
         animate("block/gravity_anchor_emblem", 3, true);
+        animate("block/soul_ritual_shrine_circle", 4, true);
+        animate("block/soul_ritual_shrine_circle_active", 1, true);
+        animate("block/soul_ritual_shrine_flame", 3, false);
+        animate("block/soul_ritual_shrine_flame_active", 2, false);
 
         for (int index = 0; index < 16; index++) animate("block/wither_ward/wither_ward_%02d".formatted(index), 2, true);
 

@@ -13,6 +13,7 @@ public class ModAttachments {
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ModConstants.MOD_ID);
 
     public static final Supplier<AttachmentType<Boolean>> WRAITHFIRE = ATTACHMENT_TYPES.register("wraithfire", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL.fieldOf("burning")).sync(ByteBufCodecs.BOOL).build());
+    public static final Supplier<AttachmentType<Integer>> RITUAL_TICKS = ATTACHMENT_TYPES.register("ritual_ticks", () -> AttachmentType.builder(() -> 0).sync(ByteBufCodecs.VAR_INT).build());
 
     public static void register(IEventBus eventBus) {
         ATTACHMENT_TYPES.register(eventBus);

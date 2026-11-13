@@ -87,6 +87,11 @@ public class ModLanguageProvider extends LanguageProvider {
                 new Translation("description.2", "and flying mobs are pulled to the ground."),
                 new Translation("description.3", "Note: Redstone toggles if the block is enabled/disabled.")
         );
+        addBlock(ModBlocks.SOUL_RITUAL_SHRINE.getBlock(), "Soul Ritual Shrine",
+                new Translation("description.1", "Lead a mob onto the circle and right click with a Soul Crystal"),
+                new Translation("description.2", "to bind it into its spawn egg."),
+                new Translation("description.3", "Note: The rite stops if the mob leaves the circle.")
+        );
         addBlock(ModBlocks.RIFT_ANCHOR.getBlock(), "Rift Anchor",
                 new Translation("description.1", "Nearby enderman and shulkers can't teleport."),
                 new Translation("description.2", "Note: Redstone toggles if the block is enabled/disabled.")
@@ -131,6 +136,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add("message.soul_harvest.bloom_sigil.incomplete", "No flat square of Soul Bloom is centered here (1x1, 3x3, 5x5, 7x7 or 9x9).");
         add("message.soul_harvest.bloom_sigil.no_crystals", "Awakening this pad needs %s Soul Crystals.");
         add("message.soul_harvest.bloom_sigil.already_awakened", "This Soul Bloom is already part of an awakened Sigil of Life.");
+
+        add("message.soul_harvest.soul_ritual_shrine.no_mob", "No mob is standing on the circle.");
+        add("message.soul_harvest.soul_ritual_shrine.no_egg", "This creature has no egg to bind it into.");
+        add("message.soul_harvest.soul_ritual_shrine.busy", "The rite is already under way.");
 
         add("gui.soul_harvest.loot_extractor.priority", "Priority");
         add("gui.soul_harvest.loot_extractor.priority.description", "Higher numbers are filled first\nTies share items in turn\nArrows +/-1, Shift +/-10, scroll works too");

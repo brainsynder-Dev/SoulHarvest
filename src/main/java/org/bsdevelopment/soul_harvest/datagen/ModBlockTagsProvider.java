@@ -30,6 +30,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.DESTINATION_PAD.getBlock(),
                 ModBlocks.RIFT_ANCHOR.getBlock(),
                 ModBlocks.GRAVITY_ANCHOR.getBlock(),
+                ModBlocks.SOUL_RITUAL_SHRINE.getBlock(),
                 ModBlocks.SOUL_STEEL_BLOCK.getBlock(),
                 ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock(),
                 ModBlocks.WATCHER_BRICKS.getBlock()

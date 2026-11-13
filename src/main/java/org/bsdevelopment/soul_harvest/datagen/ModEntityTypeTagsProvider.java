@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.world.entity.EntityType;
+import net.neoforged.neoforge.common.Tags;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
 import org.bsdevelopment.soul_harvest.registry.ModTags;
 
@@ -31,6 +32,11 @@ public class ModEntityTypeTagsProvider extends IntrinsicHolderTagsProvider<Entit
                 EntityType.BEE,
                 EntityType.PARROT,
                 EntityType.ALLAY
+        );
+
+        tag(ModTags.RITUAL_BLACKLIST).addTag(Tags.EntityTypes.BOSSES).add(
+                EntityType.WARDEN,
+                EntityType.ELDER_GUARDIAN
         );
     }
 }

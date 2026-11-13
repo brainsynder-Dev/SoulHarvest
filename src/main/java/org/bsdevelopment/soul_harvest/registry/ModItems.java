@@ -57,6 +57,7 @@ public class ModItems {
                         output.accept(ModBlocks.DESTINATION_PAD.getItem());
                         output.accept(ModBlocks.RIFT_ANCHOR.getItem());
                         output.accept(ModBlocks.GRAVITY_ANCHOR.getItem());
+                        output.accept(ModBlocks.SOUL_RITUAL_SHRINE.getItem());
                         output.accept(ModBlocks.WATCHER_BRICKS.getItem());
                         output.accept(ModBlocks.SOUL_STEEL_BLOCK.getItem());
                         output.accept(ModBlocks.SOUL_CRYSTAL_BLOCK.getItem());

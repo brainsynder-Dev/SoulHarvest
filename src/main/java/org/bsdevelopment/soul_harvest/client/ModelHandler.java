@@ -24,10 +24,12 @@ import org.bsdevelopment.soul_harvest.client.particle.RiftWarpParticle;
 import org.bsdevelopment.soul_harvest.client.particle.SoulSmokeParticle;
 import org.bsdevelopment.soul_harvest.client.particle.SpriteParticleFactory;
 import org.bsdevelopment.soul_harvest.client.particle.XpSparkleParticle;
+import org.bsdevelopment.soul_harvest.client.render.RitualRenderData;
 import org.bsdevelopment.soul_harvest.client.render.SoulHarvestAltarRenderer;
 import org.bsdevelopment.soul_harvest.client.render.WisdomVesselItemRenderer;
 import org.bsdevelopment.soul_harvest.client.render.WisdomVesselRenderer;
 import org.bsdevelopment.soul_harvest.client.render.WraithfireSprites;
+import org.bsdevelopment.soul_harvest.registry.ModAttachments;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
 import org.bsdevelopment.soul_harvest.registry.ModFluids;
@@ -56,6 +58,7 @@ public class ModelHandler {
         eventBus.<RegisterRenderStateModifiersEvent>addListener(event -> {
             event.registerEntityModifier(new TypeToken<EntityRenderer<Entity, EntityRenderState>>() {}, (entity, renderState) -> {
                 if (Wraithfire.isBurning(entity)) renderState.setRenderData(WraithfireSprites.BURNING, true);
+                if (entity.hasData(ModAttachments.RITUAL_TICKS)) RitualRenderData.apply(entity.getData(ModAttachments.RITUAL_TICKS), renderState);
             });
         });
 

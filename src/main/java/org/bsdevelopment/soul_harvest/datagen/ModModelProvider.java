@@ -27,6 +27,7 @@ import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import org.bsdevelopment.soul_harvest.blocks.RiftPadBlock;
 import org.bsdevelopment.soul_harvest.blocks.SoulAshBlock;
 import org.bsdevelopment.soul_harvest.blocks.SoulBloomBlock;
+import org.bsdevelopment.soul_harvest.blocks.SoulRitualShrineBlock;
 import org.bsdevelopment.soul_harvest.blocks.WatcherBricksBlock;
 import org.bsdevelopment.soul_harvest.blocks.base.RedstonePoweredBlock;
 import org.bsdevelopment.soul_harvest.blocks.base.SpawnPadBlock;
@@ -94,6 +95,7 @@ public class ModModelProvider extends ModelProvider {
         createToggleBlock(blockModels, ModBlocks.RIFT_PAD.getBlock(), RiftPadBlock.LINKED, "rift_pad_dormant", "rift_pad", "rift_pad");
         createToggleBlock(blockModels, ModBlocks.RIFT_ANCHOR.getBlock(), RedstonePoweredBlock.POWERED, "rift_anchor", "rift_anchor_off", "rift_anchor");
         createToggleBlock(blockModels, ModBlocks.GRAVITY_ANCHOR.getBlock(), RedstonePoweredBlock.POWERED, "gravity_anchor", "gravity_anchor_disabled", "gravity_anchor");
+        createToggleBlock(blockModels, ModBlocks.SOUL_RITUAL_SHRINE.getBlock(), SoulRitualShrineBlock.ACTIVE, "soul_ritual_shrine", "soul_ritual_shrine_active", "soul_ritual_shrine");
 
         Block watcherBricks = ModBlocks.WATCHER_BRICKS.getBlock();
         Material altarBricksTexture = new Material(blockModel("altar_bricks"));

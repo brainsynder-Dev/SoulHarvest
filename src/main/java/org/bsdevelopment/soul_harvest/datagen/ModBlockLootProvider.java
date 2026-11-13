@@ -26,7 +26,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
     protected void generate() {
         List.of(ModBlocks.ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_HARVEST_ALTAR.getBlock(), ModBlocks.LOOT_EXTRACTOR.getBlock(),
                 ModBlocks.SOUL_ASH.getBlock(), ModBlocks.SOUL_BLOOM.getBlock(), ModBlocks.WARDSTONE_TILES.getBlock(), ModBlocks.WITHER_WARD.getBlock(), ModBlocks.SOULSTREAM_PAD.getBlock(), ModBlocks.RIFT_PAD.getBlock(),
-                ModBlocks.DESTINATION_PAD.getBlock(), ModBlocks.RIFT_ANCHOR.getBlock(), ModBlocks.GRAVITY_ANCHOR.getBlock(), ModBlocks.SOUL_STEEL_BLOCK.getBlock(),
+                ModBlocks.DESTINATION_PAD.getBlock(), ModBlocks.RIFT_ANCHOR.getBlock(), ModBlocks.GRAVITY_ANCHOR.getBlock(), ModBlocks.SOUL_RITUAL_SHRINE.getBlock(), ModBlocks.SOUL_STEEL_BLOCK.getBlock(),
                 ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock(), ModBlocks.WATCHER_BRICKS.getBlock()
         ).forEach(this::dropSelf);
 

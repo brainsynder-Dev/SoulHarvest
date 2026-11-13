@@ -113,6 +113,13 @@ public class ModBlocks {
             GravityAnchorBlockEntity::new
     );
 
+    public static final BlockRegistration<SoulRitualShrineBlock, BlockItemHandler, SoulRitualShrineBlockEntity> SOUL_RITUAL_SHRINE = new BlockRegistration<>(
+            "soul_ritual_shrine",
+            props -> new SoulRitualShrineBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3.5f, 9f).noOcclusion().lightLevel(state -> state.getValue(SoulRitualShrineBlock.ACTIVE) ? 12 : 5).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new,
+            SoulRitualShrineBlockEntity::new
+    );
+
     public static final BlockRegistration<Block, BlockItemHandler, ?> SOUL_STEEL_BLOCK = new BlockRegistration<>(
             "soul_steel_block",
             props -> new Block(props.mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5f, 6f).sound(SoundType.METAL)),

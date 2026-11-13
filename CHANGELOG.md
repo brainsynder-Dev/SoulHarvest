@@ -4,6 +4,7 @@
 - Added Rift Warp particle when an entity is teleported away from a Rift Pad
 - Added Arrival Ring particle for when an entity arrives at a Destination Pad
 - Added Binding Rune, Binding Flash, and Soul Smoke particles
+- Added Soul Ritual Shrine block to convert mobs into their spawn egg
 
 ## 26.1.2-1
 - Initial release
