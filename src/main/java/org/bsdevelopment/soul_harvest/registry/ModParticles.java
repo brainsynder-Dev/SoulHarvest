@@ -15,6 +15,9 @@ public class ModParticles {
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BLOOM_PETAL = PARTICLE_TYPES.register("bloom_petal", () -> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> RIFT_WARP = PARTICLE_TYPES.register("rift_warp", () -> new SimpleParticleType(false));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> ARRIVAL_RING = PARTICLE_TYPES.register("arrival_ring", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BINDING_RUNE = PARTICLE_TYPES.register("binding_rune", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BINDING_FLASH = PARTICLE_TYPES.register("binding_flash", () -> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SOUL_SMOKE = PARTICLE_TYPES.register("soul_smoke", () -> new SimpleParticleType(false));
 
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);

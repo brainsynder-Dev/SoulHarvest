@@ -16,9 +16,12 @@ import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 import org.bsdevelopment.soul_harvest.client.particle.ArrivalRingParticle;
+import org.bsdevelopment.soul_harvest.client.particle.BindingFlashParticle;
+import org.bsdevelopment.soul_harvest.client.particle.BindingRuneParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomBurstParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomPetalParticle;
 import org.bsdevelopment.soul_harvest.client.particle.RiftWarpParticle;
+import org.bsdevelopment.soul_harvest.client.particle.SoulSmokeParticle;
 import org.bsdevelopment.soul_harvest.client.particle.SpriteParticleFactory;
 import org.bsdevelopment.soul_harvest.client.particle.XpSparkleParticle;
 import org.bsdevelopment.soul_harvest.client.render.SoulHarvestAltarRenderer;
@@ -62,6 +65,9 @@ public class ModelHandler {
             registerParticle(event, ModParticles.BLOOM_PETAL.get(), BloomPetalParticle::new);
             registerParticle(event, ModParticles.RIFT_WARP.get(), RiftWarpParticle::new);
             registerParticle(event, ModParticles.ARRIVAL_RING.get(), ArrivalRingParticle::new);
+            registerParticle(event, ModParticles.BINDING_RUNE.get(), BindingRuneParticle::new);
+            registerParticle(event, ModParticles.BINDING_FLASH.get(), BindingFlashParticle::new);
+            registerParticle(event, ModParticles.SOUL_SMOKE.get(), SoulSmokeParticle::new);
         });
     }
 
