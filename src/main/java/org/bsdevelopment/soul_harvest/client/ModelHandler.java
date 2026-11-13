@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.IEventBus;
@@ -18,6 +19,7 @@ import org.bsdevelopment.soul_harvest.client.particle.ArrivalRingParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomBurstParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomPetalParticle;
 import org.bsdevelopment.soul_harvest.client.particle.RiftWarpParticle;
+import org.bsdevelopment.soul_harvest.client.particle.SpriteParticleFactory;
 import org.bsdevelopment.soul_harvest.client.particle.XpSparkleParticle;
 import org.bsdevelopment.soul_harvest.client.render.SoulHarvestAltarRenderer;
 import org.bsdevelopment.soul_harvest.client.render.WisdomVesselItemRenderer;
@@ -55,11 +57,15 @@ public class ModelHandler {
         });
 
         eventBus.<RegisterParticleProvidersEvent>addListener(event -> {
-            event.registerSpriteSet(ModParticles.XP_SPARKLE.get(), XpSparkleParticle.Provider::new);
-            event.registerSpriteSet(ModParticles.BLOOM_BURST.get(), BloomBurstParticle.Provider::new);
-            event.registerSpriteSet(ModParticles.BLOOM_PETAL.get(), BloomPetalParticle.Provider::new);
-            event.registerSpriteSet(ModParticles.RIFT_WARP.get(), RiftWarpParticle.Provider::new);
-            event.registerSpriteSet(ModParticles.ARRIVAL_RING.get(), ArrivalRingParticle.Provider::new);
+            registerParticle(event, ModParticles.XP_SPARKLE.get(), XpSparkleParticle::new);
+            registerParticle(event, ModParticles.BLOOM_BURST.get(), BloomBurstParticle::new);
+            registerParticle(event, ModParticles.BLOOM_PETAL.get(), BloomPetalParticle::new);
+            registerParticle(event, ModParticles.RIFT_WARP.get(), RiftWarpParticle::new);
+            registerParticle(event, ModParticles.ARRIVAL_RING.get(), ArrivalRingParticle::new);
         });
+    }
+
+    private static void registerParticle(RegisterParticleProvidersEvent event, SimpleParticleType particleType, SpriteParticleFactory factory) {
+        event.registerSpriteSet(particleType, sprites -> (options, level, x, y, z, xSpeed, ySpeed, zSpeed, random) -> factory.create(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites));
     }
 }
