@@ -16,6 +16,7 @@ import org.bsdevelopment.soul_harvest.blocks.entity.base.DataSaverBlockEntity;
 import org.bsdevelopment.soul_harvest.blocks.entity.base.ILinkable;
 import org.bsdevelopment.soul_harvest.config.ModConfig;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
+import org.bsdevelopment.soul_harvest.registry.ModParticles;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,8 @@ public class RiftPadBlockEntity extends DataSaverBlockEntity implements ILinkabl
             linkPosition(null);
             return;
         }
+
+        level.sendParticles(ModParticles.RIFT_WARP.get(), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 30, 0.3, 0.4, 0.3, 0);
 
         float yaw = destinationState.getValue(DirectionalPlateBlock.FACING).toYRot();
         entity.teleportTo(level, destinationPos.getX() + 0.5, destinationPos.getY() + 0.0625, destinationPos.getZ() + 0.5, Set.of(), yaw, entity.getXRot(), true);
