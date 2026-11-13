@@ -14,6 +14,7 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
+import org.bsdevelopment.soul_harvest.client.particle.ArrivalRingParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomBurstParticle;
 import org.bsdevelopment.soul_harvest.client.particle.BloomPetalParticle;
 import org.bsdevelopment.soul_harvest.client.particle.RiftWarpParticle;
@@ -58,6 +59,7 @@ public class ModelHandler {
             event.registerSpriteSet(ModParticles.BLOOM_BURST.get(), BloomBurstParticle.Provider::new);
             event.registerSpriteSet(ModParticles.BLOOM_PETAL.get(), BloomPetalParticle.Provider::new);
             event.registerSpriteSet(ModParticles.RIFT_WARP.get(), RiftWarpParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.ARRIVAL_RING.get(), ArrivalRingParticle.Provider::new);
         });
     }
 }

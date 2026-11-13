@@ -17,5 +17,6 @@ public class ModParticleProvider extends ParticleDescriptionProvider {
         spriteSet(ModParticles.BLOOM_BURST.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "bloom_burst"), 8, false);
         spriteSet(ModParticles.BLOOM_PETAL.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "bloom_petal"), 4, false);
         spriteSet(ModParticles.RIFT_WARP.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "rift_warp"), 6, false);
+        spriteSet(ModParticles.ARRIVAL_RING.get(), Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "arrival_ring"), 6, false);
     }
 }

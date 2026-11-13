@@ -45,6 +45,8 @@ public class RiftPadBlockEntity extends DataSaverBlockEntity implements ILinkabl
         entity.teleportTo(level, destinationPos.getX() + 0.5, destinationPos.getY() + 0.0625, destinationPos.getZ() + 0.5, Set.of(), yaw, entity.getXRot(), true);
         entity.setPortalCooldown(10);
         level.gameEvent(GameEvent.TELEPORT, destinationPos, GameEvent.Context.of(entity));
+        for (int ring = 0; ring < 3; ring++) level.sendParticles(ModParticles.ARRIVAL_RING.get(), destinationPos.getX() + 0.5, destinationPos.getY() + 1.6 - ring * 0.6, destinationPos.getZ() + 0.5, 0, ring * 4, 0, 0, 1);
+
         playTeleportSound(level);
     }
 
