@@ -154,7 +154,12 @@ publishing {
 
 publishMods {
     file = tasks.jar.flatMap { it.archiveFile }
-    changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
+    val changelogVersion = modVersion
+    changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText.map { text ->
+        val section = text.replace("\r\n", "\n").substringAfter("## $changelogVersion\n", "").substringBefore("\n## ").trim()
+        if (section.isEmpty()) throw GradleException("CHANGELOG.md has no section for $changelogVersion")
+        section
+    }
     type = STABLE
     displayName = modVersion
     modLoaders.add("neoforge")
