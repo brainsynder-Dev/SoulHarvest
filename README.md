@@ -8,6 +8,16 @@ It is still in early development and more features will be added as I get more i
 - NeoForge `26.1.2.124` or newer
 - Java `25`
 
+## Development Goals:
+- [ ] Add armor set(s)
+- [ ] Add tool set(s)
+- [ ] In-game wiki (without mod dependencies hopefully) aka guide book
+- [ ] Stats collection and gui for the extractor and altar
+- [ ] More decoration blocks
+
+### End Game Goals:
+- [ ] Simulated Mob kills so there is no need for an actual mob farm
+
 ## Building
 ```bash
 ./gradlew runData build
