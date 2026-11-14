@@ -27,8 +27,12 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         List.of(ModBlocks.ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_HARVEST_ALTAR.getBlock(), ModBlocks.LOOT_EXTRACTOR.getBlock(),
                 ModBlocks.SOUL_ASH.getBlock(), ModBlocks.SOUL_BLOOM.getBlock(), ModBlocks.WARDSTONE_TILES.getBlock(), ModBlocks.WITHER_WARD.getBlock(), ModBlocks.SOULSTREAM_PAD.getBlock(), ModBlocks.RIFT_PAD.getBlock(),
                 ModBlocks.DESTINATION_PAD.getBlock(), ModBlocks.RIFT_ANCHOR.getBlock(), ModBlocks.GRAVITY_ANCHOR.getBlock(), ModBlocks.SOUL_RITUAL_SHRINE.getBlock(), ModBlocks.SOUL_STEEL_BLOCK.getBlock(),
-                ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock(), ModBlocks.WATCHER_BRICKS.getBlock()
+                ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock(), ModBlocks.WATCHER_BRICKS.getBlock(), ModBlocks.ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.ALTAR_BRICK_WALL.getBlock(),
+                ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock()
         ).forEach(this::dropSelf);
+
+        add(ModBlocks.ALTAR_BRICK_SLAB.getBlock(), this::createSlabItemTable);
+        add(ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock(), this::createSlabItemTable);
 
         add(ModBlocks.WISDOM_VESSEL.getBlock(), block -> LootTable.lootTable()
                 .withPool(applyExplosionCondition(block, LootPool.lootPool()

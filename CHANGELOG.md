@@ -1,5 +1,6 @@
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
+- feat: add Stairs, Slab, and Wall variants for Altar Bricks and Soul Altar Bricks
 
 ## 26.1.2-2
 - Added the 'Soul Bloom Seed' and 'Soul Bloom' block to spawn passive mobs

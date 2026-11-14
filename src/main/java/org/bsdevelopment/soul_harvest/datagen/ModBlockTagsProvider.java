@@ -33,8 +33,18 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.SOUL_RITUAL_SHRINE.getBlock(),
                 ModBlocks.SOUL_STEEL_BLOCK.getBlock(),
                 ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock(),
-                ModBlocks.WATCHER_BRICKS.getBlock()
+                ModBlocks.WATCHER_BRICKS.getBlock(),
+                ModBlocks.ALTAR_BRICK_STAIRS.getBlock(),
+                ModBlocks.ALTAR_BRICK_SLAB.getBlock(),
+                ModBlocks.ALTAR_BRICK_WALL.getBlock(),
+                ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock(),
+                ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock(),
+                ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock()
         );
+
+        tag(BlockTags.STAIRS).add(ModBlocks.ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock());
+        tag(BlockTags.SLABS).add(ModBlocks.ALTAR_BRICK_SLAB.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock());
+        tag(BlockTags.WALLS).add(ModBlocks.ALTAR_BRICK_WALL.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock());
 
         tag(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.SOUL_STEEL_BLOCK.getBlock(), ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock());
 

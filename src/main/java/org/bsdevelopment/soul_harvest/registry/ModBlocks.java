@@ -4,7 +4,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -30,6 +33,42 @@ public class ModBlocks {
     public static final BlockRegistration<Block, BlockItemHandler, ?> SOUL_ALTAR_BRICKS = new BlockRegistration<>(
             "soul_altar_bricks",
             props -> new Block(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<StairBlock, BlockItemHandler, ?> ALTAR_BRICK_STAIRS = new BlockRegistration<>(
+            "altar_brick_stairs",
+            props -> new StairBlock(ALTAR_BRICKS.getBlock().defaultBlockState(), props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<SlabBlock, BlockItemHandler, ?> ALTAR_BRICK_SLAB = new BlockRegistration<>(
+            "altar_brick_slab",
+            props -> new SlabBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<WallBlock, BlockItemHandler, ?> ALTAR_BRICK_WALL = new BlockRegistration<>(
+            "altar_brick_wall",
+            props -> new WallBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<StairBlock, BlockItemHandler, ?> SOUL_ALTAR_BRICK_STAIRS = new BlockRegistration<>(
+            "soul_altar_brick_stairs",
+            props -> new StairBlock(SOUL_ALTAR_BRICKS.getBlock().defaultBlockState(), props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<SlabBlock, BlockItemHandler, ?> SOUL_ALTAR_BRICK_SLAB = new BlockRegistration<>(
+            "soul_altar_brick_slab",
+            props -> new SlabBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<WallBlock, BlockItemHandler, ?> SOUL_ALTAR_BRICK_WALL = new BlockRegistration<>(
+            "soul_altar_brick_wall",
+            props -> new WallBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
             BlockItemHandler::new
     );
 

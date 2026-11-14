@@ -63,6 +63,12 @@ public class ModItems {
                         output.accept(ModBlocks.SOUL_CRYSTAL_BLOCK.getItem());
                         output.accept(ModBlocks.ALTAR_BRICKS.getItem());
                         output.accept(ModBlocks.SOUL_ALTAR_BRICKS.getItem());
+                        output.accept(ModBlocks.ALTAR_BRICK_STAIRS.getItem());
+                        output.accept(ModBlocks.ALTAR_BRICK_SLAB.getItem());
+                        output.accept(ModBlocks.ALTAR_BRICK_WALL.getItem());
+                        output.accept(ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getItem());
+                        output.accept(ModBlocks.SOUL_ALTAR_BRICK_SLAB.getItem());
+                        output.accept(ModBlocks.SOUL_ALTAR_BRICK_WALL.getItem());
                         output.accept(ModBlocks.SOUL_ASH.getItem());
                         output.accept(ModBlocks.SOUL_BLOOM.getItem());
                         output.accept(ModBlocks.WARDSTONE_TILES.getItem());

@@ -60,8 +60,9 @@ public class ModModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        List.of(ModBlocks.ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), ModBlocks.WARDSTONE_TILES.getBlock(),
-                ModBlocks.SOUL_STEEL_BLOCK.getBlock(), ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock()).forEach(blockModels::createTrivialCube);
+        List.of(ModBlocks.WARDSTONE_TILES.getBlock(), ModBlocks.SOUL_STEEL_BLOCK.getBlock(), ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock()).forEach(blockModels::createTrivialCube);
+        blockModels.family(ModBlocks.ALTAR_BRICKS.getBlock()).stairs(ModBlocks.ALTAR_BRICK_STAIRS.getBlock()).slab(ModBlocks.ALTAR_BRICK_SLAB.getBlock()).wall(ModBlocks.ALTAR_BRICK_WALL.getBlock());
+        blockModels.family(ModBlocks.SOUL_ALTAR_BRICKS.getBlock()).stairs(ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock()).slab(ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock()).wall(ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock());
 
         SoulAshBlock soulAsh = ModBlocks.SOUL_ASH.getBlock();
         createSpawnPad(blockModels, soulAsh, ModelTemplates.CUBE_ALL.create(soulAsh, TextureMapping.cube(soulAsh), blockModels.modelOutput));

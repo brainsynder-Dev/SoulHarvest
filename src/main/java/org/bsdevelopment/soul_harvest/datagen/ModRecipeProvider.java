@@ -5,7 +5,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
@@ -92,6 +95,9 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private void buildBlockRecipes() {
+        buildBrickVariantRecipes(ModBlocks.ALTAR_BRICKS.getBlock(), ModBlocks.ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.ALTAR_BRICK_SLAB.getBlock(), ModBlocks.ALTAR_BRICK_WALL.getBlock());
+        buildBrickVariantRecipes(ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock());
+
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_BRICKS.getBlock(), 8)
                 .pattern("BBB")
                 .pattern("BSB")
@@ -231,6 +237,22 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('O', Items.CRYING_OBSIDIAN)
                 .unlockedBy("has_soul_steel_ingot", has(ModItems.SOUL_STEEL_INGOT.get()))
                 .save(output);
+    }
+
+    private void buildBrickVariantRecipes(ItemLike bricks, ItemLike stairs, ItemLike slab, ItemLike wall) {
+        stairBuilder(stairs, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(output);
+        slab(RecipeCategory.BUILDING_BLOCKS, slab, bricks);
+        wall(RecipeCategory.DECORATIONS, wall, bricks);
+
+        buildStonecutterRecipe(RecipeCategory.BUILDING_BLOCKS, stairs, bricks, 1);
+        buildStonecutterRecipe(RecipeCategory.BUILDING_BLOCKS, slab, bricks, 2);
+        buildStonecutterRecipe(RecipeCategory.DECORATIONS, wall, bricks, 1);
+    }
+
+    private void buildStonecutterRecipe(RecipeCategory category, ItemLike result, ItemLike base, int count) {
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(base), category, result, count)
+                .unlockedBy(getHasName(base), has(base))
+                .save(output, ModConstants.MOD_ID + ":" + getConversionRecipeName(result, base) + "_stonecutting");
     }
 
     private void buildStorageRecipes() {
