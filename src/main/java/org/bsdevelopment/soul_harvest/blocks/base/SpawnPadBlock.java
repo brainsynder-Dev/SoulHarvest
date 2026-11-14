@@ -122,14 +122,14 @@ public abstract class SpawnPadBlock extends Block {
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
         int sigilIndex = state.getValue(SIGIL);
-        if (sigilIndex == 0 || !allowRedstoneUpdates() || !(level instanceof ServerLevel serverLevel)) return;
+        if (sigilIndex == 0 || !allowRedstoneUpdates() || !(level instanceof ServerLevel serverLevel) || !serverLevel.hasNeighborSignal(pos)) return;
 
         GlobalPos center = GlobalPos.of(serverLevel.dimension(), getSigilCenter(pos, sigilIndex));
         long gameTime = serverLevel.getGameTime();
         Long nextSpawnTime = nextUpdateSpawnTimes.get(center);
         if (nextSpawnTime != null && gameTime < nextSpawnTime) return;
 
-        nextUpdateSpawnTimes.put(center, gameTime + Mth.randomBetweenInclusive(serverLevel.getRandom(), 4, 8));
+        nextUpdateSpawnTimes.put(center, gameTime + getSpawnInterval(getSigilSize(sigilIndex)));
         spawnMobs(serverLevel, center.pos(), getSigilSize(sigilIndex), serverLevel.getRandom());
     }
 
@@ -175,7 +175,7 @@ public abstract class SpawnPadBlock extends Block {
     }
 
     private int getSpawnInterval(int size) {
-        return Math.max(20, getBaseSpawnInterval() * 25 / (size * size));
+        return Math.max(20, getBaseSpawnInterval() * 25 / (size <= 5 ? size * size : size * 5));
     }
 
     private int getMaxEntities(int size) {
