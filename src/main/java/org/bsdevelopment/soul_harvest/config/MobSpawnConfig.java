@@ -76,6 +76,9 @@ public class MobSpawnConfig {
         @SerializedName("allowed-dimensions")
         public List<String> dimensions = new ArrayList<>();
 
+        @SerializedName("variants")
+        public List<String> variants = new ArrayList<>();
+
         public SpawnEntry(String entityType, int minCount, int maxCount, int weight) {
             this.entityType = entityType;
             this.minCount = minCount;
@@ -91,6 +94,10 @@ public class MobSpawnConfig {
         public SpawnEntry setDimensions(String... dimensions) {
             this.dimensions.addAll(List.of(dimensions));
             return this;
+        }
+
+        public List<String> getVariants() {
+            return variants == null ? List.of() : variants;
         }
 
         public Identifier getMobResource() {

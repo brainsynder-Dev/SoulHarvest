@@ -22,6 +22,7 @@ import net.minecraft.world.phys.AABB;
 import org.bsdevelopment.soul_harvest.config.MobSpawnConfig;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
 import org.bsdevelopment.soul_harvest.registry.ModTags;
+import org.bsdevelopment.soul_harvest.utilities.MobVariants;
 import org.bsdevelopment.soul_harvest.utilities.WeightedRandomSelector;
 import org.jspecify.annotations.Nullable;
 
@@ -206,7 +207,7 @@ public abstract class SpawnPadBlock extends Block {
             Optional<MobSpawnSettings.SpawnerData> biomeSpawn = level.getBiome(center).value().getMobSettings().getMobs(getSpawnCategory()).getRandom(random);
             if (biomeSpawn.isPresent()) {
                 MobSpawnSettings.SpawnerData spawnerData = biomeSpawn.get();
-                return new SpawnSelection(spawnerData.type(), Mth.randomBetweenInclusive(random, spawnerData.minCount(), spawnerData.maxCount()));
+                return new SpawnSelection(spawnerData.type(), Mth.randomBetweenInclusive(random, spawnerData.minCount(), spawnerData.maxCount()), null);
             }
         }
 
@@ -214,7 +215,7 @@ public abstract class SpawnPadBlock extends Block {
         if (entry == null) return null;
 
         Optional<EntityType<?>> type = BuiltInRegistries.ENTITY_TYPE.getOptional(entry.getMobResource());
-        return type.map(entityType -> new SpawnSelection(entityType, WeightedRandomSelector.getRandomSpawnCount(entry, random))).orElse(null);
+        return type.map(entityType -> new SpawnSelection(entityType, WeightedRandomSelector.getRandomSpawnCount(entry, random), entry)).orElse(null);
     }
 
     private void spawnMobs(ServerLevel level, BlockPos center, int size, RandomSource random) {
@@ -240,10 +241,13 @@ public abstract class SpawnPadBlock extends Block {
                 if (!isSpawnLightValid(level.getMaxLocalRawBrightness(spawnPos)) || !SpawnPlacements.isSpawnPositionOk(selection.type(), level, spawnPos)) continue;
 
                 Entity spawnedMob = selection.type().spawn(level, spawnPos, EntitySpawnReason.SPAWNER);
-                if (spawnedMob != null) playSpawnEffect(level, spawnedMob);
+                if (spawnedMob == null) continue;
+
+                if (selection.configEntry() != null) MobVariants.randomize(level, spawnedMob, selection.configEntry().getVariants(), random);
+                playSpawnEffect(level, spawnedMob);
             }
         }
     }
 
-    private record SpawnSelection(EntityType<?> type, int count) {}
+    private record SpawnSelection(EntityType<?> type, int count, MobSpawnConfig.@Nullable SpawnEntry configEntry) {}
 }
