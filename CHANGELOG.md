@@ -3,6 +3,7 @@
 - feat: add Stairs, Slab, and Wall variants for Altar Bricks and Soul Altar Bricks
 - feat: add mob variant randomization for spawned entities
 - fix: improve spawn timing logic for SpawnPadBlock based on neighbor signal
+- fix: expand Soul Harvest Altar attack area down to include mobs level with the altar (woops)
 
 ## 26.1.2-2
 - Added the 'Soul Bloom Seed' and 'Soul Bloom' block to spawn passive mobs

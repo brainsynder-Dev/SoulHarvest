@@ -164,7 +164,7 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
         if (++attackCooldown < getAttackInterval()) return;
         attackCooldown = 0;
 
-        AABB attackArea = new AABB(worldPosition.above()).inflate(1, 0, 1).expandTowards(0, 2, 0);
+        AABB attackArea = new AABB(worldPosition).inflate(1, 0, 1).expandTowards(0, 3, 0);
         List<Mob> targets = level.getEntitiesOfClass(Mob.class, attackArea, mob -> mob.isAlive() && mob.isAttackable());
         if (targets.isEmpty()) return;
 
