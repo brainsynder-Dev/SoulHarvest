@@ -1,3 +1,6 @@
+## 26.1.2-3
+- fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
+
 ## 26.1.2-2
 - Added the 'Soul Bloom Seed' and 'Soul Bloom' block to spawn passive mobs
 - Added Bloom Burst and Bloom Petal particles for when a mob spawns on a Soul Bloom block

@@ -6,6 +6,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
@@ -15,6 +16,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -33,6 +36,7 @@ import org.bsdevelopment.soul_harvest.client.screen.widgets.Widgets;
 import org.bsdevelopment.soul_harvest.config.ModConfig;
 import org.bsdevelopment.soul_harvest.container.SlotPosition;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
+import org.bsdevelopment.soul_harvest.registry.ModConstants;
 import org.bsdevelopment.soul_harvest.registry.ModItems;
 import org.bsdevelopment.soul_harvest.utilities.Wraithfire;
 import org.bsdevelopment.soul_harvest.utilities.fakeplayer.CustomFakePlayer;
@@ -169,7 +173,7 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
         boolean flameRune = getRuneCount(ModItems.SOUL_FLAME_RUNE.get()) > 0;
         for (Mob target : targets) {
             target.invulnerableTime = 0;
-            attacker.attack(target);
+            attackWithoutReinforcements(attacker, target);
             if (flameRune) Wraithfire.markBurning(target);
         }
         attacker.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -302,6 +306,19 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
             if (!stack.isEmpty()) runeCounts.merge(stack.getItem(), Math.min(stack.getCount(), ModConfig.getRuneMaxStack(stack.getItem())), Integer::sum);
         }
         attackWeapon = null;
+    }
+
+    private void attackWithoutReinforcements(CustomFakePlayer attacker, Mob target) {
+        AttributeInstance reinforcementChance = target.getAttribute(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+        if (reinforcementChance == null) {
+            attacker.attack(target);
+            return;
+        }
+
+        AttributeModifier reinforcements = new AttributeModifier(Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "altar_no_reinforcements"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        reinforcementChance.addOrUpdateTransientModifier(reinforcements);
+        attacker.attack(target);
+        reinforcementChance.removeModifier(reinforcements.id());
     }
 
     private CustomFakePlayer getFakePlayer(ServerLevel level) {
