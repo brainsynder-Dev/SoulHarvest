@@ -22,6 +22,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import org.bsdevelopment.soul_harvest.blocks.RiftPadBlock;
@@ -63,6 +64,14 @@ public class ModModelProvider extends ModelProvider {
         List.of(ModBlocks.WARDSTONE_TILES.getBlock(), ModBlocks.SOUL_STEEL_BLOCK.getBlock(), ModBlocks.SOUL_CRYSTAL_BLOCK.getBlock()).forEach(blockModels::createTrivialCube);
         blockModels.family(ModBlocks.ALTAR_BRICKS.getBlock()).stairs(ModBlocks.ALTAR_BRICK_STAIRS.getBlock()).slab(ModBlocks.ALTAR_BRICK_SLAB.getBlock()).wall(ModBlocks.ALTAR_BRICK_WALL.getBlock());
         blockModels.family(ModBlocks.SOUL_ALTAR_BRICKS.getBlock()).stairs(ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock()).slab(ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock()).wall(ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock());
+
+        Block altarPillar = ModBlocks.ALTAR_PILLAR.getBlock();
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(altarPillar).with(PropertyDispatch.initial(BlockStateProperties.UP, BlockStateProperties.DOWN)
+                .select(false, false, BlockModelGenerators.plainVariant(blockModel("altar_pillar")))
+                .select(true, false, BlockModelGenerators.plainVariant(blockModel("altar_pillar_bottom")))
+                .select(true, true, BlockModelGenerators.plainVariant(blockModel("altar_pillar_middle")))
+                .select(false, true, BlockModelGenerators.plainVariant(blockModel("altar_pillar_top")))));
+        blockModels.registerSimpleItemModel(altarPillar, blockModel("altar_pillar"));
 
         SoulAshBlock soulAsh = ModBlocks.SOUL_ASH.getBlock();
         createSpawnPad(blockModels, soulAsh, ModelTemplates.CUBE_ALL.create(soulAsh, TextureMapping.cube(soulAsh), blockModels.modelOutput));

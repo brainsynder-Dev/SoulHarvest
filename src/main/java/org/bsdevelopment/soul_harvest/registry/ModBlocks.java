@@ -72,6 +72,12 @@ public class ModBlocks {
             BlockItemHandler::new
     );
 
+    public static final BlockRegistration<AltarPillarBlock, BlockItemHandler, ?> ALTAR_PILLAR = new BlockRegistration<>(
+            "altar_pillar",
+            props -> new AltarPillarBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
     public static final BlockRegistration<SoulHarvestAltarBlock, BlockItemHandler, SoulHarvestAltarBlockEntity> SOUL_HARVEST_ALTAR = new BlockRegistration<>(
             "soul_harvest_altar",
             props -> new SoulHarvestAltarBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3.5f, 6f).noOcclusion().sound(SoundType.POLISHED_DEEPSLATE)),

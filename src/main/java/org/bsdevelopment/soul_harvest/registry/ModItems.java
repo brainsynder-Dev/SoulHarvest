@@ -71,6 +71,7 @@ public class ModItems {
                         output.accept(ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getItem());
                         output.accept(ModBlocks.SOUL_ALTAR_BRICK_SLAB.getItem());
                         output.accept(ModBlocks.SOUL_ALTAR_BRICK_WALL.getItem());
+                        output.accept(ModBlocks.ALTAR_PILLAR.getItem());
                         output.accept(ModBlocks.SOUL_ASH.getItem());
                         output.accept(ModBlocks.SOUL_BLOOM.getItem());
                         output.accept(ModBlocks.WARDSTONE_TILES.getItem());

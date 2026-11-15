@@ -98,6 +98,14 @@ public class ModRecipeProvider extends RecipeProvider {
         buildBrickVariantRecipes(ModBlocks.ALTAR_BRICKS.getBlock(), ModBlocks.ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.ALTAR_BRICK_SLAB.getBlock(), ModBlocks.ALTAR_BRICK_WALL.getBlock());
         buildBrickVariantRecipes(ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_SLAB.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock());
 
+        shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_PILLAR.getBlock(), 2)
+                .pattern("A")
+                .pattern("A")
+                .define('A', ModBlocks.ALTAR_BRICKS.getBlock())
+                .unlockedBy("has_altar_bricks", has(ModBlocks.ALTAR_BRICKS.getBlock()))
+                .save(output);
+        buildStonecutterRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_PILLAR.getBlock(), ModBlocks.ALTAR_BRICKS.getBlock(), 1);
+
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_BRICKS.getBlock(), 8)
                 .pattern("BBB")
                 .pattern("BSB")
