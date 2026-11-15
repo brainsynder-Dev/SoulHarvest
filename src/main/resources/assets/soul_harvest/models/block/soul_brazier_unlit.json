@@ -1,0 +1,818 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        225,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "textures": {
+    "particle": "soul_harvest:block/altar_bricks",
+    "altar_bricks": "soul_harvest:block/altar_bricks",
+    "brazier_coals_off": "soul_harvest:block/soul_brazier_coals_off",
+    "brazier_top": "soul_harvest:block/soul_brazier_top",
+    "soul_crystal_block": "soul_harvest:block/soul_crystal_block"
+  },
+  "elements": [
+    {
+      "name": "foot",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        2,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "texture": "#altar_bricks"
+        },
+        "east": {
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "texture": "#altar_bricks"
+        },
+        "south": {
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "texture": "#altar_bricks"
+        },
+        "west": {
+          "uv": [
+            3,
+            14,
+            13,
+            16
+          ],
+          "texture": "#altar_bricks"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#altar_bricks"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "bowl",
+      "from": [
+        1,
+        2,
+        1
+      ],
+      "to": [
+        15,
+        4,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            12,
+            15,
+            14
+          ],
+          "texture": "#altar_bricks"
+        },
+        "east": {
+          "uv": [
+            1,
+            12,
+            15,
+            14
+          ],
+          "texture": "#altar_bricks"
+        },
+        "south": {
+          "uv": [
+            1,
+            12,
+            15,
+            14
+          ],
+          "texture": "#altar_bricks"
+        },
+        "west": {
+          "uv": [
+            1,
+            12,
+            15,
+            14
+          ],
+          "texture": "#altar_bricks"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#altar_bricks"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#altar_bricks"
+        }
+      }
+    },
+    {
+      "name": "wn",
+      "from": [
+        0,
+        4,
+        0
+      ],
+      "to": [
+        16,
+        9,
+        3
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "north"
+        },
+        "east": {
+          "uv": [
+            13,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            0,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "west": {
+          "uv": [
+            0,
+            7,
+            3,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#brazier_top"
+        },
+        "down": {
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "texture": "#altar_bricks"
+        }
+      }
+    },
+    {
+      "name": "ws",
+      "from": [
+        0,
+        4,
+        13
+      ],
+      "to": [
+        16,
+        9,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "east": {
+          "uv": [
+            0,
+            7,
+            3,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            0,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            13,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            13,
+            16,
+            16
+          ],
+          "texture": "#brazier_top"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            3
+          ],
+          "texture": "#altar_bricks"
+        }
+      }
+    },
+    {
+      "name": "ww",
+      "from": [
+        0,
+        4,
+        3
+      ],
+      "to": [
+        3,
+        9,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "east": {
+          "uv": [
+            3,
+            7,
+            13,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "south": {
+          "uv": [
+            0,
+            7,
+            3,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "west": {
+          "uv": [
+            3,
+            7,
+            13,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#brazier_top"
+        },
+        "down": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#altar_bricks"
+        }
+      }
+    },
+    {
+      "name": "we",
+      "from": [
+        13,
+        4,
+        3
+      ],
+      "to": [
+        16,
+        9,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            7,
+            3,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "east": {
+          "uv": [
+            3,
+            7,
+            13,
+            12
+          ],
+          "texture": "#altar_bricks",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            13,
+            7,
+            16,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "west": {
+          "uv": [
+            3,
+            7,
+            13,
+            12
+          ],
+          "texture": "#altar_bricks"
+        },
+        "up": {
+          "uv": [
+            13,
+            3,
+            16,
+            13
+          ],
+          "texture": "#brazier_top"
+        },
+        "down": {
+          "uv": [
+            13,
+            3,
+            16,
+            13
+          ],
+          "texture": "#altar_bricks"
+        }
+      }
+    },
+    {
+      "name": "coals",
+      "from": [
+        3,
+        4,
+        3
+      ],
+      "to": [
+        13,
+        6,
+        13
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#brazier_coals_off"
+        }
+      }
+    },
+    {
+      "name": "tip0",
+      "from": [
+        0,
+        9,
+        0
+      ],
+      "to": [
+        2,
+        11,
+        2
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "north"
+        },
+        "east": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "west": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "down": {
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ],
+          "texture": "#soul_crystal_block"
+        }
+      }
+    },
+    {
+      "name": "tip1",
+      "from": [
+        14,
+        9,
+        0
+      ],
+      "to": [
+        16,
+        11,
+        2
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "north"
+        },
+        "east": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "west": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "up": {
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "down": {
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ],
+          "texture": "#soul_crystal_block"
+        }
+      }
+    },
+    {
+      "name": "tip2",
+      "from": [
+        0,
+        9,
+        14
+      ],
+      "to": [
+        2,
+        11,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "east": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "west"
+        },
+        "up": {
+          "uv": [
+            0,
+            14,
+            2,
+            16
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ],
+          "texture": "#soul_crystal_block"
+        }
+      }
+    },
+    {
+      "name": "tip3",
+      "from": [
+        14,
+        9,
+        14
+      ],
+      "to": [
+        16,
+        11,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "east": {
+          "uv": [
+            0,
+            5,
+            2,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "east"
+        },
+        "south": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block",
+          "cullface": "south"
+        },
+        "west": {
+          "uv": [
+            14,
+            5,
+            16,
+            7
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "up": {
+          "uv": [
+            14,
+            14,
+            16,
+            16
+          ],
+          "texture": "#soul_crystal_block"
+        },
+        "down": {
+          "uv": [
+            14,
+            0,
+            16,
+            2
+          ],
+          "texture": "#soul_crystal_block"
+        }
+      }
+    }
+  ]
+}

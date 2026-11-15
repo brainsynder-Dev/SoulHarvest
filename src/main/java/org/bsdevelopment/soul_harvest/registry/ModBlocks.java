@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
@@ -75,6 +76,12 @@ public class ModBlocks {
     public static final BlockRegistration<AltarPillarBlock, BlockItemHandler, ?> ALTAR_PILLAR = new BlockRegistration<>(
             "altar_pillar",
             props -> new AltarPillarBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new
+    );
+
+    public static final BlockRegistration<SoulBrazierBlock, BlockItemHandler, ?> SOUL_BRAZIER = new BlockRegistration<>(
+            "soul_brazier",
+            props -> new SoulBrazierBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).noOcclusion().lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 12 : 0).sound(SoundType.POLISHED_DEEPSLATE)),
             BlockItemHandler::new
     );
 

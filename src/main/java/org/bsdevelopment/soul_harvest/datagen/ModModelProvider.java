@@ -105,6 +105,7 @@ public class ModModelProvider extends ModelProvider {
         createToggleBlock(blockModels, ModBlocks.RIFT_PAD.getBlock(), RiftPadBlock.LINKED, "rift_pad_dormant", "rift_pad", "rift_pad");
         createToggleBlock(blockModels, ModBlocks.RIFT_ANCHOR.getBlock(), RedstonePoweredBlock.POWERED, "rift_anchor", "rift_anchor_off", "rift_anchor");
         createToggleBlock(blockModels, ModBlocks.GRAVITY_ANCHOR.getBlock(), RedstonePoweredBlock.POWERED, "gravity_anchor", "gravity_anchor_disabled", "gravity_anchor");
+        createToggleBlock(blockModels, ModBlocks.SOUL_BRAZIER.getBlock(), BlockStateProperties.LIT, "soul_brazier_unlit", "soul_brazier", "soul_brazier");
         createToggleBlock(blockModels, ModBlocks.SOUL_RITUAL_SHRINE.getBlock(), SoulRitualShrineBlock.ACTIVE, "soul_ritual_shrine", "soul_ritual_shrine_active", "soul_ritual_shrine");
 
         Block watcherBricks = ModBlocks.WATCHER_BRICKS.getBlock();

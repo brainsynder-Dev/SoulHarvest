@@ -106,6 +106,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(output);
         buildStonecutterRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_PILLAR.getBlock(), ModBlocks.ALTAR_BRICKS.getBlock(), 1);
 
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.SOUL_BRAZIER.getBlock())
+                .pattern("AEA")
+                .pattern("AAA")
+                .define('A', ModBlocks.ALTAR_BRICKS.getBlock())
+                .define('E', ModItems.SOUL_EMBER.get())
+                .unlockedBy("has_soul_ember", has(ModItems.SOUL_EMBER.get()))
+                .save(output);
+
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_BRICKS.getBlock(), 8)
                 .pattern("BBB")
                 .pattern("BSB")
