@@ -1,3 +1,6 @@
+## 26.1.2-4
+- feat: add Soul Ember fuel item, crafted or made by dropping 4x coal into Wraithfire
+
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
 - feat: add Stairs, Slab, and Wall variants for Altar Bricks and Soul Altar Bricks

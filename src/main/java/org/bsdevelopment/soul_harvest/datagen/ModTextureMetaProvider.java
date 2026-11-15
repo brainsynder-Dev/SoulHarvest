@@ -82,6 +82,7 @@ public class ModTextureMetaProvider implements DataProvider {
         animate("item/looting_soul_rune", 3, true);
         animate("item/beheading_soul_rune", 3, true);
         animate("item/soul_wand_linked", 2, true);
+        animate("item/soul_ember", 3, true);
     }
 
     private void animate(String texture, int frameTime, boolean interpolate) {

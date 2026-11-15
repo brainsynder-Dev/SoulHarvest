@@ -316,6 +316,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('X', ModItems.SOUL_CRYSTAL.get())
                 .unlockedBy("has_soul_steel_nugget", has(ModItems.SOUL_STEEL_NUGGET.get()))
                 .save(output);
+
+        shapeless(RecipeCategory.MISC, ModItems.SOUL_EMBER.get(), 4)
+                .requires(Items.COAL, 4)
+                .requires(ModItems.SOUL_CRYSTAL.get())
+                .requires(Items.SOUL_SOIL)
+                .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
+                .save(output);
     }
 
     private void buildRuneRecipes() {

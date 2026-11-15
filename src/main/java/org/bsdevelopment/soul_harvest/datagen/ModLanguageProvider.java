@@ -111,6 +111,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         addItem(ModItems.LIQUID_EXPERIENCE_BUCKET.get(), "Liquid Experience Bucket");
         addItem(ModItems.SOUL_STEEL_NUGGET.get(), "Soul Steel Nugget");
+        addItem(ModItems.SOUL_EMBER.get(), "Soul Ember", new Translation("description", "Burns long in a furnace, or use on a block to light Wraithfire"));
         addItem(ModItems.FILTER.get(), "Filter",
                 new Translation("description.1", "Use to set up filters, sneak-use to flip whitelist and blacklist"),
                 new Translation("description.2", "Put it in a Loot Extractor filter slot for extra rules"),

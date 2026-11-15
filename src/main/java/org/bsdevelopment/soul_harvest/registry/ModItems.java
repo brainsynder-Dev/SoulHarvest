@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.bsdevelopment.soul_harvest.items.FilterItem;
 import org.bsdevelopment.soul_harvest.items.SoulCrystalItem;
+import org.bsdevelopment.soul_harvest.items.SoulEmberItem;
 import org.bsdevelopment.soul_harvest.items.SoulWandItem;
 import org.bsdevelopment.soul_harvest.items.SpawnPadSeedItem;
 import org.bsdevelopment.soul_harvest.items.base.BaseItem;
@@ -30,6 +31,7 @@ public class ModItems {
     public static final DeferredItem<SpawnPadSeedItem> SOUL_ASH_SEED = ITEMS.registerItem("soul_ash_seed", props -> new SpawnPadSeedItem(ModBlocks.SOUL_ASH, props));
     public static final DeferredItem<SpawnPadSeedItem> SOUL_BLOOM_SEED = ITEMS.registerItem("soul_bloom_seed", props -> new SpawnPadSeedItem(ModBlocks.SOUL_BLOOM, props));
     public static final DeferredItem<BaseItem> SOUL_STEEL_NUGGET = ITEMS.registerItem("soul_steel_nugget", BaseItem::new);
+    public static final DeferredItem<SoulEmberItem> SOUL_EMBER = ITEMS.registerItem("soul_ember", SoulEmberItem::new, props -> props.fireResistant());
     public static final DeferredItem<FilterItem> FILTER = ITEMS.registerItem("filter", FilterItem::new);
 
     public static final DeferredItem<BaseItem> BLANK_SOUL_RUNE = ITEMS.registerItem("blank_soul_rune", BaseItem::new);
@@ -83,6 +85,7 @@ public class ModItems {
                         output.accept(SOUL_STEEL_INGOT.get());
                         output.accept(SOUL_STEEL_NUGGET.get());
                         output.accept(SOUL_SAWBLADE.get());
+                        output.accept(SOUL_EMBER.get());
                         output.accept(LIQUID_EXPERIENCE_BUCKET.get());
 
                         output.accept(BLANK_SOUL_RUNE.get());
