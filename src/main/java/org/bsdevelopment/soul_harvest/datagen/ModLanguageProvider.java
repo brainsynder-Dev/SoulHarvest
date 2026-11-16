@@ -63,6 +63,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addBlock(ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock(), "Soul Altar Brick Wall");
         addBlock(ModBlocks.ALTAR_PILLAR.getBlock(), "Altar Pillar");
         addBlock(ModBlocks.SOUL_BRAZIER.getBlock(), "Soul Brazier");
+        addBlock(ModBlocks.SOUL_LAMP.getBlock(), "Soul Lamp");
         addBlock(ModBlocks.SOUL_HARVEST_ALTAR.getBlock(), "Soul Harvest Altar");
         addBlock(ModBlocks.LOOT_EXTRACTOR.getBlock(), "Loot Extractor",
                 new Translation("description.1", "Collects the drops from the Soul Harvest Altar."),

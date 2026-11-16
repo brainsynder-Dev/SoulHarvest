@@ -3,6 +3,7 @@
 - feat: add Altar Pillar block
 - feat: add Soul Brazier block
 - refactor: compact item counts like 1.5k and 2M in the Soul Harvest Altar Jade tooltip
+- feat: add Soul Lamp block
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar

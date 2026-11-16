@@ -114,6 +114,16 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_soul_ember", has(ModItems.SOUL_EMBER.get()))
                 .save(output);
 
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.SOUL_LAMP.getBlock())
+                .pattern(" A ")
+                .pattern("GEG")
+                .pattern("AAA")
+                .define('A', ModBlocks.ALTAR_BRICKS.getBlock())
+                .define('G', Items.GLASS_PANE)
+                .define('E', ModItems.SOUL_EMBER.get())
+                .unlockedBy("has_soul_ember", has(ModItems.SOUL_EMBER.get()))
+                .save(output);
+
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_BRICKS.getBlock(), 8)
                 .pattern("BBB")
                 .pattern("BSB")
