@@ -35,7 +35,7 @@ public class RiftPadBlock extends BasePlateBlock implements EntityBlock {
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
         if (!(level instanceof ServerLevel serverLevel) || !state.getValue(LINKED)) return;
-        if (entity.isCrouching() || entity.getY() > pos.getY() + 0.4) return;
+        if (entity.isCrouching() || entity.getY() > pos.getY() + 0.4 || (entity.tickCount < 3)) return;
 
         if (level.getBlockEntity(pos) instanceof RiftPadBlockEntity riftPad) riftPad.teleportEntity(serverLevel, entity);
     }

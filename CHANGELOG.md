@@ -5,6 +5,7 @@
 - refactor: compact item counts like 1.5k and 2M in the Soul Harvest Altar Jade tooltip
 - feat: add Soul Lamp block
 - fix: sync Rift Pad teleports to clients (no longer visible when teleporting short distances)
+- fix: prevent Rift Pad from teleporting entities in their first few ticks after spawning
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
