@@ -10,11 +10,14 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import org.bsdevelopment.soul_harvest.blocks.RiftPadBlock;
 import org.bsdevelopment.soul_harvest.blocks.base.DirectionalPlateBlock;
 import org.bsdevelopment.soul_harvest.blocks.entity.base.DataSaverBlockEntity;
 import org.bsdevelopment.soul_harvest.blocks.entity.base.ILinkable;
 import org.bsdevelopment.soul_harvest.config.ModConfig;
+import org.bsdevelopment.soul_harvest.network.PacketHandler;
+import org.bsdevelopment.soul_harvest.network.client.RiftTeleportPayload;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModParticles;
 
@@ -42,7 +45,9 @@ public class RiftPadBlockEntity extends DataSaverBlockEntity implements ILinkabl
         level.sendParticles(ModParticles.RIFT_WARP.get(), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 30, 0.3, 0.4, 0.3, 0);
 
         float yaw = destinationState.getValue(DirectionalPlateBlock.FACING).toYRot();
-        entity.teleportTo(level, destinationPos.getX() + 0.5, destinationPos.getY() + 0.0625, destinationPos.getZ() + 0.5, Set.of(), yaw, entity.getXRot(), true);
+        Vec3 destination = new Vec3(destinationPos.getX() + 0.5, destinationPos.getY() + 0.0625, destinationPos.getZ() + 0.5);
+        entity.teleportTo(level, destination.x, destination.y, destination.z, Set.of(), yaw, entity.getXRot(), true);
+        PacketHandler.sendPayloadToTracking(entity, new RiftTeleportPayload(entity.getId(), destination, yaw));
         entity.setPortalCooldown(10);
         level.gameEvent(GameEvent.TELEPORT, destinationPos, GameEvent.Context.of(entity));
         for (int ring = 0; ring < 3; ring++) level.sendParticles(ModParticles.ARRIVAL_RING.get(), destinationPos.getX() + 0.5, destinationPos.getY() + 1.6 - ring * 0.6, destinationPos.getZ() + 0.5, 0, ring * 4, 0, 0, 1);
