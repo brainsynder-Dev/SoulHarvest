@@ -240,9 +240,11 @@ public abstract class SpawnPadBlock extends Block {
                 BlockPos spawnPos = center.offset(random.nextInt(size) - radius, 1, random.nextInt(size) - radius);
                 if (!isSpawnLightValid(level.getMaxLocalRawBrightness(spawnPos)) || !SpawnPlacements.isSpawnPositionOk(selection.type(), level, spawnPos)) continue;
 
-                Entity spawnedMob = selection.type().spawn(level, spawnPos, EntitySpawnReason.SPAWNER);
-                if (spawnedMob == null) continue;
+                Entity spawnedMob = selection.type().create(level, null, spawnPos, EntitySpawnReason.SPAWNER, true, false);
+                if ((spawnedMob == null) || !level.noCollision(spawnedMob, spawnedMob.getDimensions(spawnedMob.getPose()).makeBoundingBox(spawnedMob.position()))) continue;
 
+                level.addFreshEntityWithPassengers(spawnedMob);
+                if (spawnedMob instanceof Mob mob) mob.playAmbientSound();
                 if (selection.configEntry() != null) MobVariants.randomize(level, spawnedMob, selection.configEntry().getVariants(), random);
                 playSpawnEffect(level, spawnedMob);
             }
