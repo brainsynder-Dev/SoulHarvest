@@ -2,6 +2,7 @@
 - feat: add Soul Ember fuel item, crafted or made by dropping 4x coal into Wraithfire
 - feat: add Altar Pillar block
 - feat: add Soul Brazier block
+- refactor: compact item counts like 1.5k and 2M in the Soul Harvest Altar Jade tooltip
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar

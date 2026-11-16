@@ -8,6 +8,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import org.bsdevelopment.soul_harvest.config.ModConfig;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
+import org.bsdevelopment.soul_harvest.utilities.ModUtilities;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -32,7 +33,7 @@ public enum SoulHarvestAltarJadeProvider implements IBlockComponentProvider {
             Item item = BuiltInRegistries.ITEM.byNameCodec().parse(NbtOps.INSTANCE, entry.get("item")).result().orElse(null);
             if (item == null) continue;
 
-            Element element = JadeUI.item(item.getDefaultInstance(), 1.0f, String.valueOf(entry.getLongOr("count", 0)));
+            Element element = JadeUI.item(item.getDefaultInstance(), 1.0f, ModUtilities.formatCompactNumber(entry.getLongOr("count", 0)));
             if (index % itemsPerLine == 0) {
                 tooltip.add(element);
             } else {

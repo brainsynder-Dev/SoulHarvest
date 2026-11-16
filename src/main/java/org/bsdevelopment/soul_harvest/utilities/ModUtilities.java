@@ -3,6 +3,8 @@ package org.bsdevelopment.soul_harvest.utilities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 public class ModUtilities {
@@ -17,6 +19,16 @@ public class ModUtilities {
             loreIndex++;
         }
         return components;
+    }
+
+    public static String formatCompactNumber(long number) {
+        if (number < 1000) return String.valueOf(number);
+
+        int exponent = Math.min((int) Math.log10(number) / 3, 4);
+        DecimalFormat format = new DecimalFormat("#.#");
+        format.setRoundingMode(RoundingMode.FLOOR);
+
+        return format.format(number / Math.pow(1000, exponent)) + "kMBT".charAt(exponent - 1);
     }
 
     public static int getExperienceForLevel(int level) {
