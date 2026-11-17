@@ -325,7 +325,7 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
         if (fakePlayer == null) {
             fakePlayer = new CustomFakePlayer(level, worldPosition);
             fakePlayer.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(1024);
-            fakePlayer.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
+            fakePlayer.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(15);
             fakePlayer.setPos(worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5);
         }
         return fakePlayer;

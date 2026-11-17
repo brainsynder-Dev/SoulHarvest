@@ -7,6 +7,7 @@
 - fix: sync Rift Pad teleports to clients (no longer visible when teleporting short distances)
 - fix: prevent Rift Pad from teleporting entities in their first few ticks after spawning
 - fix: prevent Spawn Pad mobs from spawning inside blocks (damn slimes glitching though blocks)
+- refactor: lower Soul Harvest Altar attack damage from 20 to 15
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
