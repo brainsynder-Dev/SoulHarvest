@@ -244,7 +244,6 @@ public abstract class SpawnPadBlock extends Block {
                 if ((spawnedMob == null) || !level.noCollision(spawnedMob, spawnedMob.getDimensions(spawnedMob.getPose()).makeBoundingBox(spawnedMob.position()))) continue;
 
                 level.addFreshEntityWithPassengers(spawnedMob);
-                if (spawnedMob instanceof Mob mob) mob.playAmbientSound();
                 if (selection.configEntry() != null) MobVariants.randomize(level, spawnedMob, selection.configEntry().getVariants(), random);
                 playSpawnEffect(level, spawnedMob);
             }
