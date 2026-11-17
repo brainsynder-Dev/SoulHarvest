@@ -21,6 +21,7 @@ public class PacketHandler {
         registrar.playToServer(GhostSlotPayload.ID, GhostSlotPayload.CODEC, GhostSlotPayload::process);
         registrar.playToServer(FilterSettingPayload.ID, FilterSettingPayload.CODEC, FilterSettingPayload::process);
         registrar.playToServer(LootExtractorSettingPayload.ID, LootExtractorSettingPayload.CODEC, LootExtractorSettingPayload::process);
+        registrar.playToServer(HushSettingsPayload.ID, HushSettingsPayload.CODEC, HushSettingsPayload::process);
     }
 
     public static void sendPayload(Player player, CustomPacketPayload payload) {

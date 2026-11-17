@@ -91,6 +91,13 @@ public class ModBlocks {
             BlockItemHandler::new
     );
 
+    public static final BlockRegistration<HushedMaskBlock, BlockItemHandler, HushedMaskBlockEntity> HUSHED_MASK = new BlockRegistration<>(
+            "hushed_mask",
+            props -> new HushedMaskBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(1.5f, 6f).noOcclusion().pushReaction(PushReaction.DESTROY).sound(SoundType.POLISHED_DEEPSLATE)),
+            BlockItemHandler::new,
+            HushedMaskBlockEntity::new
+    );
+
     public static final BlockRegistration<SoulHarvestAltarBlock, BlockItemHandler, SoulHarvestAltarBlockEntity> SOUL_HARVEST_ALTAR = new BlockRegistration<>(
             "soul_harvest_altar",
             props -> new SoulHarvestAltarBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3.5f, 6f).noOcclusion().sound(SoundType.POLISHED_DEEPSLATE)),

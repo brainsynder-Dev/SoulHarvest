@@ -38,6 +38,7 @@ public class SoulHarvest {
         NeoForge.EVENT_BUS.register(new LiquidExperienceListener());
         NeoForge.EVENT_BUS.register(new SoulHarvestAltarListener());
         NeoForge.EVENT_BUS.register(new RiftAnchorListener());
+        NeoForge.EVENT_BUS.register(new HushedMaskListener());
         NeoForge.EVENT_BUS.register(new GravityAnchorListener());
         NeoForge.EVENT_BUS.register(new WraithfireListener());
 

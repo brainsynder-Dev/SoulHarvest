@@ -8,6 +8,7 @@
 - fix: prevent Rift Pad from teleporting entities in their first few ticks after spawning
 - fix: prevent Spawn Pad mobs from spawning inside blocks (damn slimes glitching though blocks)
 - refactor: lower Soul Harvest Altar attack damage from 20 to 15
+- feat: add Hushed Mask block to silence mob idle and death sounds and death puffs in a 5x5 in front of it
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar

@@ -42,7 +42,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.SOUL_ALTAR_BRICK_WALL.getBlock(),
                 ModBlocks.ALTAR_PILLAR.getBlock(),
                 ModBlocks.SOUL_BRAZIER.getBlock(),
-                ModBlocks.SOUL_LAMP.getBlock()
+                ModBlocks.SOUL_LAMP.getBlock(),
+                ModBlocks.HUSHED_MASK.getBlock()
         );
 
         tag(BlockTags.STAIRS).add(ModBlocks.ALTAR_BRICK_STAIRS.getBlock(), ModBlocks.SOUL_ALTAR_BRICK_STAIRS.getBlock());

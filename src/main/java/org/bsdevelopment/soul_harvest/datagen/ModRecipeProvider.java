@@ -6,6 +6,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -122,6 +123,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('G', Items.GLASS_PANE)
                 .define('E', ModItems.SOUL_EMBER.get())
                 .unlockedBy("has_soul_ember", has(ModItems.SOUL_EMBER.get()))
+                .save(output);
+
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.HUSHED_MASK.getBlock())
+                .pattern(" B ")
+                .pattern("WCW")
+                .pattern("AAA")
+                .define('B', Items.BONE)
+                .define('W', ItemTags.WOOL)
+                .define('C', ModItems.SOUL_CRYSTAL.get())
+                .define('A', ModBlocks.ALTAR_BRICKS.getBlock())
+                .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
 
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALTAR_BRICKS.getBlock(), 8)

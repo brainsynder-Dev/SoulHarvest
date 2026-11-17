@@ -64,6 +64,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addBlock(ModBlocks.ALTAR_PILLAR.getBlock(), "Altar Pillar");
         addBlock(ModBlocks.SOUL_BRAZIER.getBlock(), "Soul Brazier");
         addBlock(ModBlocks.SOUL_LAMP.getBlock(), "Soul Lamp");
+        addBlock(ModBlocks.HUSHED_MASK.getBlock(), "Hushed Mask", new Translation("description", "Silences idle and death sounds of mobs, and their death puffs, in a 5x5x5 area in front of its face"));
         addBlock(ModBlocks.SOUL_HARVEST_ALTAR.getBlock(), "Soul Harvest Altar");
         addBlock(ModBlocks.LOOT_EXTRACTOR.getBlock(), "Loot Extractor",
                 new Translation("description.1", "Collects the drops from the Soul Harvest Altar."),
