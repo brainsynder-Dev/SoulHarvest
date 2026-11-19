@@ -24,7 +24,7 @@ import java.util.Set;
 public class HushedMaskBlockEntity extends DataSaverBlockEntity {
     public static final int MAX_SIZE = 5;
     private static final BlockTracker LOADED_MASKS = new BlockTracker();
-    private final EnumSet<MuteType> mutedTypes = EnumSet.of(MuteType.IDLE, MuteType.DEATH, MuteType.PUFF);
+    private final EnumSet<MuteType> mutedTypes = MuteType.getDefaultMutedTypes();
     private int width = MAX_SIZE;
     private int height = MAX_SIZE;
     private int depth = MAX_SIZE;
@@ -71,10 +71,6 @@ public class HushedMaskBlockEntity extends DataSaverBlockEntity {
         if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
-    public void resetSettings() {
-        applySettings(MAX_SIZE, MAX_SIZE, MAX_SIZE, EnumSet.of(MuteType.IDLE, MuteType.DEATH, MuteType.PUFF));
-    }
-
     public AABB getArea() {
         Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
         Direction across = facing.getAxis().isVertical() ? Direction.EAST : facing.getClockWise();
@@ -99,6 +95,11 @@ public class HushedMaskBlockEntity extends DataSaverBlockEntity {
         super.setRemoved();
 
         if (level != null) LOADED_MASKS.remove(level, worldPosition);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     @Override
@@ -127,6 +128,10 @@ public class HushedMaskBlockEntity extends DataSaverBlockEntity {
 
     public enum MuteType {
         IDLE, DEATH, PUFF, HURT;
+
+        public static EnumSet<MuteType> getDefaultMutedTypes() {
+            return EnumSet.noneOf(MuteType.class);
+        }
 
         public String getKey() {
             return "mute_" + name().toLowerCase(Locale.ROOT);

@@ -4,7 +4,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import org.bsdevelopment.soul_harvest.client.render.HushAreaRenderer;
 import org.bsdevelopment.soul_harvest.client.screen.FilterScreen;
 import org.bsdevelopment.soul_harvest.client.screen.SoulHarvestAltarScreen;
 import org.bsdevelopment.soul_harvest.client.screen.LootExtractorScreen;
@@ -20,5 +22,10 @@ public class SoulHarvestClient {
         event.register(ModContainers.LOOT_EXTRACTOR.get(), LootExtractorScreen::new);
         event.register(ModContainers.FILTER.get(), FilterScreen::new);
         event.register(ModContainers.WISDOM_VESSEL.get(), WisdomVesselScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        HushAreaRenderer.drawShownAreas();
     }
 }

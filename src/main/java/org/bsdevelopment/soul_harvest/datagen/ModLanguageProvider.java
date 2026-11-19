@@ -64,7 +64,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addBlock(ModBlocks.ALTAR_PILLAR.getBlock(), "Altar Pillar");
         addBlock(ModBlocks.SOUL_BRAZIER.getBlock(), "Soul Brazier");
         addBlock(ModBlocks.SOUL_LAMP.getBlock(), "Soul Lamp");
-        addBlock(ModBlocks.HUSHED_MASK.getBlock(), "Hushed Mask", new Translation("description", "Silences idle and death sounds of mobs, and their death puffs, in a 5x5x5 area in front of its face"));
+        addBlock(ModBlocks.HUSHED_MASK.getBlock(), "Hushed Mask", new Translation("description", "Silences idle and death sounds of mobs, and their death puffs, in the area in front of its face"));
         addBlock(ModBlocks.SOUL_HARVEST_ALTAR.getBlock(), "Soul Harvest Altar");
         addBlock(ModBlocks.LOOT_EXTRACTOR.getBlock(), "Loot Extractor",
                 new Translation("description.1", "Collects the drops from the Soul Harvest Altar."),
@@ -151,6 +151,36 @@ public class ModLanguageProvider extends LanguageProvider {
         add("message.soul_harvest.soul_ritual_shrine.no_mob", "No mob is standing on the circle.");
         add("message.soul_harvest.soul_ritual_shrine.no_egg", "This creature has no egg to bind it into.");
         add("message.soul_harvest.soul_ritual_shrine.busy", "The rite is already under way.");
+
+        add("gui.soul_harvest.hushed_mask.facing", "Facing %s");
+        add("gui.soul_harvest.hushed_mask.direction.down", "down");
+        add("gui.soul_harvest.hushed_mask.direction.up", "up");
+        add("gui.soul_harvest.hushed_mask.direction.north", "north");
+        add("gui.soul_harvest.hushed_mask.direction.south", "south");
+        add("gui.soul_harvest.hushed_mask.direction.west", "west");
+        add("gui.soul_harvest.hushed_mask.direction.east", "east");
+        add("gui.soul_harvest.hushed_mask.blocks", "%s blocks");
+        add("gui.soul_harvest.hushed_mask.show", "Show");
+        add("gui.soul_harvest.hushed_mask.area", "area");
+        add("gui.soul_harvest.hushed_mask.show_area", "Show area");
+        add("gui.soul_harvest.hushed_mask.area_section", "Area (blocks)");
+        add("gui.soul_harvest.hushed_mask.mute_section", "Mute");
+        add("gui.soul_harvest.hushed_mask.width", "Width");
+        add("gui.soul_harvest.hushed_mask.length", "Length");
+        add("gui.soul_harvest.hushed_mask.depth", "Depth");
+        add("gui.soul_harvest.hushed_mask.mute.idle", "Idle sounds");
+        add("gui.soul_harvest.hushed_mask.mute.idle.description", "Mutes the sounds mobs make while standing around");
+        add("gui.soul_harvest.hushed_mask.mute.death", "Death sounds");
+        add("gui.soul_harvest.hushed_mask.mute.death.description", "Mutes the sound when a mob dies");
+        add("gui.soul_harvest.hushed_mask.mute.puff", "Death puffs");
+        add("gui.soul_harvest.hushed_mask.mute.puff.description", "Hides the white smoke when a mob dies");
+        add("gui.soul_harvest.hushed_mask.mute.hurt", "Hurt sounds");
+        add("gui.soul_harvest.hushed_mask.mute.hurt.description", "Mute the sound when a mob is hit");
+        add("gui.soul_harvest.hushed_mask.on", "On");
+        add("gui.soul_harvest.hushed_mask.off", "Off");
+        add("gui.soul_harvest.hushed_mask.max_size", "Max 5 x 5 x 5");
+        add("gui.soul_harvest.hushed_mask.reset", "Reset");
+        add("gui.soul_harvest.hushed_mask.reset_confirm", "Reset?");
 
         add("gui.soul_harvest.loot_extractor.priority", "Priority");
         add("gui.soul_harvest.loot_extractor.priority.description", "Higher numbers are filled first\nTies share items in turn\nArrows +/-1, Shift +/-10, scroll works too");

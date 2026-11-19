@@ -3,8 +3,11 @@ package org.bsdevelopment.soul_harvest.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
@@ -16,10 +19,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.bsdevelopment.soul_harvest.blocks.entity.HushedMaskBlockEntity;
+import org.bsdevelopment.soul_harvest.client.screen.HushedMaskScreen;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
@@ -51,6 +56,14 @@ public class HushedMaskBlock extends Block implements EntityBlock {
         BlockPos supportPos = pos.relative(facing.getOpposite());
 
         return level.getBlockState(supportPos).isFaceSturdy(level, supportPos, facing);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!level.isClientSide()) return InteractionResult.SUCCESS;
+        if (level.getBlockEntity(pos) instanceof HushedMaskBlockEntity mask) HushedMaskScreen.open(mask);
+
+        return InteractionResult.SUCCESS;
     }
 
     @Override
