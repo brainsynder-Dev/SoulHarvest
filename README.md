@@ -19,6 +19,7 @@ Then came `AllTheMods 11` with no MobGrindingUtils or easy way to farm mobs, So 
 - [ ] In-game wiki (without mod dependencies hopefully) aka guide book
 - [ ] Stats collection and gui for the extractor and altar
 - [ ] More decoration blocks
+- [ ] Figure out good default values for the mob spawn configs 
 
 ### End Game Goals:
 - [ ] Simulated Mob kills so there is no need for an actual mob farm
