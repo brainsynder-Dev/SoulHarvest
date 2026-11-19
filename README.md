@@ -3,6 +3,11 @@
 A NeoForge mod that aims to help harvest mob drops and experience without any drops or experience being spawned on the ground.
 It is still in early development and more features will be added as I get more ideas/recommendations
 
+## History
+I originally came up with this mod back in 1.10 (I kept crashing the server I played on due to entity drops :P) even got the majority of the code created back then, but life got the better of me and it was shelved.
+Then 1.21 came around and I attempted to reignite the mod, at that point I had the blocks, textures, and models to go along with the code I made before, but again life happened and was shelved again.
+Then came `AllTheMods 11` with no MobGrindingUtils or easy way to farm mobs, So I said f*** it and went all out.
+
 ## Requirements
 - Minecraft `26.1.2`
 - NeoForge `26.1.2.124` or newer
