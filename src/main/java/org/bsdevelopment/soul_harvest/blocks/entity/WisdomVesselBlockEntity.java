@@ -83,6 +83,10 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
         return stack.is(Items.BUCKET) || stack.is(ModItems.LIQUID_EXPERIENCE_BUCKET.get());
     }
 
+    public BlockPos getAltarPos() {
+        return altarPos;
+    }
+
     public FluidStacksResourceHandler getTank() {
         return tank;
     }
@@ -121,10 +125,13 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
 
     public void drawFromAltar(ServerLevel level) {
         if (altarPos == null || level.getGameTime() % 20 != 0 || !level.isLoaded(altarPos)) return;
-        if (!(level.getBlockEntity(altarPos) instanceof SoulHarvestAltarBlockEntity altar) || !altar.isLinkedVessel(worldPosition)) {
+        if (!(level.getBlockEntity(altarPos) instanceof SoulHarvestAltarBlockEntity altar)) {
             linkPosition(null);
             return;
         }
+
+        altar.addLinkedVessel(worldPosition);
+        if (!altar.isFillingVessel(level, worldPosition)) return;
 
         int drawn = altar.extractExperience(getFreeExperience());
         if (drawn > 0) setStoredAmount(getStoredAmount() + drawn * MB_PER_EXPERIENCE);
@@ -179,10 +186,8 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
         setChanged();
         if (level == null) return;
 
-        if (previousAltarPos != null
-                && level.getBlockEntity(previousAltarPos) instanceof SoulHarvestAltarBlockEntity previousAltar
-                && previousAltar.isLinkedVessel(worldPosition)) previousAltar.setLinkedVessel(null);
-        if (pos != null && level.getBlockEntity(pos) instanceof SoulHarvestAltarBlockEntity altar) altar.setLinkedVessel(worldPosition);
+        if (previousAltarPos != null && level.getBlockEntity(previousAltarPos) instanceof SoulHarvestAltarBlockEntity previousAltar) previousAltar.removeLinkedVessel(worldPosition);
+        if (pos != null && level.getBlockEntity(pos) instanceof SoulHarvestAltarBlockEntity altar) altar.addLinkedVessel(worldPosition);
     }
 
     @Override

@@ -48,12 +48,12 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
     public final Map<Integer, SlotPosition> SLOTS = new LinkedHashMap<>();
     private final Map<Item, Integer> runeCounts = new HashMap<>();
     private final Set<BlockPos> linkedExtractors = new LinkedHashSet<>();
+    private final Set<BlockPos> linkedVessels = new LinkedHashSet<>();
 
     public float sawRotation;
     public float previousSawRotation;
     private BulkStorage bulkStorage = new BulkStorage();
     private CustomFakePlayer fakePlayer;
-    private BlockPos linkedVesselPos;
     private ItemStack attackWeapon;
     private int storedExperience = 0;
     private int attackCooldown = 0;
@@ -80,13 +80,29 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
         return Math.max(2, 20 - getRuneCount(ModItems.SPEED_SOUL_RUNE.get()) * 2);
     }
 
-    public boolean isLinkedVessel(BlockPos vesselPos) {
-        return vesselPos.equals(linkedVesselPos);
+    public void addLinkedVessel(BlockPos vesselPos) {
+        if (linkedVessels.add(vesselPos)) setChanged();
     }
 
-    public void setLinkedVessel(BlockPos vesselPos) {
-        linkedVesselPos = vesselPos;
-        setChanged();
+    public void removeLinkedVessel(BlockPos vesselPos) {
+        if (linkedVessels.remove(vesselPos)) setChanged();
+    }
+
+    public boolean isFillingVessel(ServerLevel level, BlockPos vesselPos) {
+        Iterator<BlockPos> iterator = linkedVessels.iterator();
+        while (iterator.hasNext()) {
+            BlockPos linkedPos = iterator.next();
+            if (!level.isLoaded(linkedPos)) continue;
+            if (!(level.getBlockEntity(linkedPos) instanceof WisdomVesselBlockEntity vessel) || !worldPosition.equals(vessel.getAltarPos())) {
+                iterator.remove();
+                setChanged();
+                continue;
+            }
+
+            if (vessel.getFreeExperience() > 0) return linkedPos.equals(vesselPos);
+        }
+
+        return false;
     }
 
     public void addLinkedExtractor(BlockPos extractorPos) {
@@ -236,7 +252,8 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
     @Override
     public void loadData(CompoundTag tag, HolderLookup.Provider registries) {
         storedExperience = tag.getIntOr("experience", 0);
-        linkedVesselPos = tag.contains("linked_vessel") ? BlockPos.of(tag.getLongOr("linked_vessel", 0)) : null;
+        linkedVessels.clear();
+        tag.getLongArray("linked_vessels").ifPresent(positions -> Arrays.stream(positions).forEach(position -> linkedVessels.add(BlockPos.of(position))));
         linkedExtractors.clear();
         tag.getLongArray("linked_extractors").ifPresent(positions -> Arrays.stream(positions).forEach(position -> linkedExtractors.add(BlockPos.of(position))));
         bulkStorage = tag.get("storage") == null ? new BulkStorage() : BulkStorage.CODEC.codec().parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get("storage")).result().orElseGet(BulkStorage::new);
@@ -245,7 +262,7 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
     @Override
     public void saveData(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putInt("experience", storedExperience);
-        if (linkedVesselPos != null) tag.putLong("linked_vessel", linkedVesselPos.asLong());
+        tag.putLongArray("linked_vessels", linkedVessels.stream().mapToLong(BlockPos::asLong).toArray());
         tag.putLongArray("linked_extractors", linkedExtractors.stream().mapToLong(BlockPos::asLong).toArray());
         tag.put("storage", BulkStorage.CODEC.codec().encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), bulkStorage).getOrThrow());
     }
