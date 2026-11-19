@@ -10,6 +10,7 @@
 - refactor: lower Soul Harvest Altar attack damage from 20 to 15
 - feat: add Hushed Mask block to silence mob idle and death sounds and death puffs in a 5x5 in front of it
 - feat: add Hushed Mask settings screen
+- feat: mute Fake Player attack sounds on entities hushed by the Hushed Mask
 
 ## 26.1.2-3
 - fix: prevent zombies from spawning reinforcements when attacked by the Soul Harvest Altar
