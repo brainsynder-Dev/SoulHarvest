@@ -43,6 +43,7 @@ public class ModItems {
     public static final DeferredItem<UpgradeItem> BANE_SOUL_RUNE = ITEMS.registerItem("bane_soul_rune", UpgradeItem::new);
     public static final DeferredItem<UpgradeItem> SPEED_SOUL_RUNE = ITEMS.registerItem("speed_soul_rune", UpgradeItem::new);
     public static final DeferredItem<UpgradeItem> WISDOM_SOUL_RUNE = ITEMS.registerItem("wisdom_soul_rune", UpgradeItem::new);
+    public static final DeferredItem<UpgradeItem> EXPANSION_RUNE = ITEMS.registerItem("expansion_rune", UpgradeItem::new);
 
     public static final DeferredItem<BucketItem> LIQUID_EXPERIENCE_BUCKET = ITEMS.registerItem("liquid_experience_bucket", props -> new BucketItem(ModFluids.LIQUID_EXPERIENCE.get(), props), props -> props.craftRemainder(Items.BUCKET).stacksTo(1));
 
@@ -101,6 +102,7 @@ public class ModItems {
                         output.accept(BANE_SOUL_RUNE.get());
                         output.accept(SPEED_SOUL_RUNE.get());
                         output.accept(WISDOM_SOUL_RUNE.get());
+                        output.accept(EXPANSION_RUNE.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {

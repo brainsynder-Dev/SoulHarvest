@@ -6,6 +6,7 @@ import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -33,11 +34,13 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
     public static final int MB_PER_EXPERIENCE = 20;
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
+    public static final int UPGRADE_SLOT = 2;
     public static final int TRANSFER_TIME = 20;
-    private final FluidStacksResourceHandler tank = new FluidStacksResourceHandler(1, getCapacity()) {
+    public static final int MAX_EXPANSION_RUNES = 4;
+    private final FluidStacksResourceHandler tank = new FluidStacksResourceHandler(1, getBaseCapacity()) {
         @Override
         protected int getCapacity(int index, FluidResource resource) {
-            return WisdomVesselBlockEntity.getCapacity();
+            return WisdomVesselBlockEntity.this.getCapacity();
         }
 
         @Override
@@ -72,15 +75,35 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
     private int transferProgress = 0;
 
     public WisdomVesselBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlocks.WISDOM_VESSEL.getTileEntityType(), 2, pos, blockState);
+        super(ModBlocks.WISDOM_VESSEL.getTileEntityType(), 3, pos, blockState);
     }
 
-    public static int getCapacity() {
-        return ModUtilities.getExperienceForLevel(ModConfig.wisdomVesselMaxLevel) * MB_PER_EXPERIENCE;
+    public static int getBaseCapacity() {
+        return getCapacity(0);
+    }
+
+    public static int getCapacity(int expansionRunes) {
+        long experience = ModUtilities.getExperienceForLevel(ModConfig.wisdomVesselMaxLevel << expansionRunes);
+        return (int) Math.min(Integer.MAX_VALUE, experience * MB_PER_EXPERIENCE);
     }
 
     public static boolean isBucket(ItemStack stack) {
         return stack.is(Items.BUCKET) || stack.is(ModItems.LIQUID_EXPERIENCE_BUCKET.get());
+    }
+
+    public int getCapacity() {
+        return getCapacity(getExpansionRunes());
+    }
+
+    public int getExpansionRunes() {
+        ItemStack upgrade = getItem(UPGRADE_SLOT);
+        if (!upgrade.is(ModItems.EXPANSION_RUNE.get())) return 0;
+
+        return Math.min(upgrade.getCount(), MAX_EXPANSION_RUNES);
+    }
+
+    public boolean isExpansionLocked() {
+        return getStoredAmount() > getBaseCapacity();
     }
 
     public BlockPos getAltarPos() {
@@ -142,13 +165,13 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
 
         WisdomVesselBlockEntity targetVessel = null;
         BlockPos belowPos = worldPosition.below();
-        while (level.getBlockEntity(belowPos) instanceof WisdomVesselBlockEntity vesselBelow && vesselBelow.getStoredAmount() < getCapacity()) {
+        while (level.getBlockEntity(belowPos) instanceof WisdomVesselBlockEntity vesselBelow && vesselBelow.getStoredAmount() < vesselBelow.getCapacity()) {
             targetVessel = vesselBelow;
             belowPos = belowPos.below();
         }
         if (targetVessel == null) return;
 
-        int drained = Math.min(getStoredAmount(), getCapacity() - targetVessel.getStoredAmount());
+        int drained = Math.min(getStoredAmount(), targetVessel.getCapacity() - targetVessel.getStoredAmount());
         targetVessel.setStoredAmount(targetVessel.getStoredAmount() + drained);
         setStoredAmount(getStoredAmount() - drained);
     }
@@ -191,6 +214,35 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (getStoredAmount() > getCapacity()) setStoredAmount(getCapacity());
+    }
+
+    @Override
+    public void setItem(int index, ItemStack stack) {
+        super.setItem(index, stack);
+        if (index == UPGRADE_SLOT) onUpgradeChanged();
+    }
+
+    @Override
+    public ItemStack removeItem(int index, int count) {
+        ItemStack removed = super.removeItem(index, count);
+        if (index == UPGRADE_SLOT) onUpgradeChanged();
+
+        return removed;
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level == null) return;
+
+        Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getItem(INPUT_SLOT));
+        Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getItem(OUTPUT_SLOT));
+    }
+
+    @Override
     public boolean isLinked() {
         return altarPos != null;
     }
@@ -216,14 +268,18 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
 
     @Override
     protected void applyImplicitComponents(DataComponentGetter components) {
+        int expansionRunes = components.getOrDefault(ModComponents.EXPANSION_RUNES.get(), 0);
+        if (expansionRunes > 0) getItems().set(UPGRADE_SLOT, new ItemStack(ModItems.EXPANSION_RUNE.get(), Math.min(expansionRunes, MAX_EXPANSION_RUNES)));
+
         SimpleFluidContent contents = components.getOrDefault(ModComponents.FLUID_CONTENTS.get(), SimpleFluidContent.EMPTY);
-        if (!contents.isEmpty()) tank.set(0, FluidResource.of(contents.copy()), contents.getAmount());
+        if (!contents.isEmpty()) tank.set(0, FluidResource.of(contents.copy()), Math.min(contents.getAmount(), getCapacity()));
     }
 
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         FluidStack contents = tank.copyToList().getFirst();
         if (!contents.isEmpty()) components.set(ModComponents.FLUID_CONTENTS.get(), SimpleFluidContent.copyOf(contents));
+        if (getExpansionRunes() > 0) components.set(ModComponents.EXPANSION_RUNES.get(), getExpansionRunes());
     }
 
     @Override
@@ -258,6 +314,13 @@ public class WisdomVesselBlockEntity extends InventoryBlockEntity implements ILi
             return getCapacity() - getStoredAmount() >= FluidType.BUCKET_VOLUME && outputFits;
         }
         return false;
+    }
+
+    private void onUpgradeChanged() {
+        if (level == null || level.isClientSide()) return;
+
+        if (getStoredAmount() > getCapacity()) setStoredAmount(getCapacity());
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     private int getStoredAmount() {

@@ -5,6 +5,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Unit;
 import net.neoforged.bus.api.IEventBus;
@@ -23,6 +24,7 @@ public class ModComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterData>> FILTER_DATA = register("filter_data", FilterData.CODEC, FilterData.STREAM_CODEC);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> FILTER_BLACKLIST = register("filter_blacklist", Unit.CODEC, StreamCodec.unit(Unit.INSTANCE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> FLUID_CONTENTS = register("fluid_contents", SimpleFluidContent.CODEC, SimpleFluidContent.STREAM_CODEC);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> EXPANSION_RUNES = register("expansion_runes", Codec.INT, ByteBufCodecs.VAR_INT);
 
     public static void register(IEventBus eventBus) {
         COMPONENTS.register(eventBus);

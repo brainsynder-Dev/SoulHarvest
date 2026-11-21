@@ -463,6 +463,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('B', ModItems.BLANK_SOUL_RUNE.get())
                 .unlockedBy("has_blank_soul_rune", has(ModItems.BLANK_SOUL_RUNE.get()))
                 .save(output);
+
+        shaped(RecipeCategory.MISC, ModItems.EXPANSION_RUNE.get())
+                .pattern("SPS")
+                .pattern("XBX")
+                .pattern("SPS")
+                .define('S', ModItems.SOUL_STEEL_INGOT.get())
+                .define('P', Items.BUCKET)
+                .define('X', ModItems.SOUL_CRYSTAL.get())
+                .define('B', ModItems.BLANK_SOUL_RUNE.get())
+                .unlockedBy("has_blank_soul_rune", has(ModItems.BLANK_SOUL_RUNE.get()))
+                .save(output);
     }
 
     public static class Runner extends RecipeProvider.Runner {

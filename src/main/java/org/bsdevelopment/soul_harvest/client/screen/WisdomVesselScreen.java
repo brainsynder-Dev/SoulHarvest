@@ -1,14 +1,18 @@
 package org.bsdevelopment.soul_harvest.client.screen;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import org.bsdevelopment.soul_harvest.blocks.entity.WisdomVesselBlockEntity;
 import org.bsdevelopment.soul_harvest.client.screen.widgets.IconButton;
 import org.bsdevelopment.soul_harvest.client.screen.widgets.Widgets;
+import org.bsdevelopment.soul_harvest.config.ModConfig;
 import org.bsdevelopment.soul_harvest.container.WisdomVesselContainer;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
 import org.bsdevelopment.soul_harvest.utilities.ModUtilities;
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WisdomVesselScreen extends AbstractContainerScreen<WisdomVesselContainer> {
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "textures/gui/wisdom_vessel.png");
     private final WisdomVesselBlockEntity vessel;
     private final List<IconButton> storeButtons = new ArrayList<>();
     private final List<IconButton> takeButtons = new ArrayList<>();
@@ -51,8 +56,7 @@ public class WisdomVesselScreen extends AbstractContainerScreen<WisdomVesselCont
 
     @Override
     public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        Identifier texture = Identifier.fromNamespaceAndPath(ModConstants.MOD_ID, "textures/gui/wisdom_vessel.png");
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         float fillLevel = vessel.getFillLevel();
         int fillHeight = fillLevel > 0 ? Math.max(1, Math.round(70 * fillLevel)) : 0;
@@ -67,6 +71,7 @@ public class WisdomVesselScreen extends AbstractContainerScreen<WisdomVesselCont
 
         if (vessel.getItem(WisdomVesselBlockEntity.INPUT_SLOT).isEmpty()) GuiUtils.drawWidget(guiGraphics, Widgets.GHOST_BUCKET, leftPos + 145, topPos + 18);
         if (vessel.getItem(WisdomVesselBlockEntity.OUTPUT_SLOT).isEmpty()) GuiUtils.drawWidget(guiGraphics, Widgets.GHOST_BUCKET, leftPos + 145, topPos + 51);
+        if (vessel.getItem(WisdomVesselBlockEntity.UPGRADE_SLOT).isEmpty()) guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos + 145, topPos + 72, 176, 0, 16, 16, 256, 256);
 
         int arrowHeight = Math.round(9 * menu.getTransferProgress());
         GuiUtils.drawWidget(guiGraphics, Widgets.ARROW_DOWN_FULL, leftPos + 149, topPos + 38, 0, 0, 7, arrowHeight, -1);
@@ -81,12 +86,44 @@ public class WisdomVesselScreen extends AbstractContainerScreen<WisdomVesselCont
         guiGraphics.text(font, Component.translatable("gui.soul_harvest.wisdom_vessel.take"), 109, 75, labelColor, false);
 
         int storedExperience = vessel.getStoredExperience();
-        int playerExperience = ModUtilities.getTotalExperience(minecraft.player);
-        float storedLevels = ModUtilities.getExactLevel(playerExperience + storedExperience) - ModUtilities.getExactLevel(playerExperience);
+        float storedLevels = ModUtilities.getExactLevel(storedExperience);
         Component experience = Component.translatable("gui.soul_harvest.wisdom_vessel.experience", String.format("%,d", storedExperience));
         Component levels = Component.translatable("gui.soul_harvest.wisdom_vessel.levels", String.format("%.1f", storedLevels));
         guiGraphics.text(font, experience, 85 - font.width(experience) / 2, 19, GuiUtils.color("#80FF20"), false);
         guiGraphics.text(font, levels, 85 - font.width(levels) / 2, 28, GuiUtils.color("#AEEBDC"), false);
+    }
+
+    @Override
+    protected void extractSlots(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractSlots(guiGraphics, mouseX, mouseY);
+
+        if (!vessel.getItem(WisdomVesselBlockEntity.UPGRADE_SLOT).isEmpty() && vessel.isExpansionLocked()) guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, 154, 72, 194, 0, 7, 7, 256, 256);
+    }
+
+    @Override
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
+        if (!menu.getCarried().isEmpty()) return;
+
+        if (isUpgradeSlot(hoveredSlot) && !hoveredSlot.hasItem()) guiGraphics.setTooltipForNextFrame(font, Component.translatable("gui.soul_harvest.wisdom_vessel.upgrade_slot"), mouseX, mouseY);
+        if (isHovering(12, 18, 22, 70, mouseX, mouseY)) {
+            Component capacity = Component.translatable("gui.soul_harvest.wisdom_vessel.capacity", String.format("%,d", vessel.getStoredExperience()), formatExperience(vessel.getCapacity()));
+            Component baseCapacity = Component.translatable("gui.soul_harvest.wisdom_vessel.base_capacity", ModConfig.wisdomVesselMaxLevel, 1 << vessel.getExpansionRunes()).withStyle(ChatFormatting.GRAY);
+            guiGraphics.setTooltipForNextFrame(font, List.of(capacity.getVisualOrderText(), baseCapacity.getVisualOrderText()), mouseX, mouseY);
+        }
+    }
+
+    @Override
+    protected List<Component> getTooltipFromContainerItem(ItemStack itemStack) {
+        List<Component> tooltip = super.getTooltipFromContainerItem(itemStack);
+        if (!isUpgradeSlot(hoveredSlot)) return tooltip;
+
+        List<Component> upgradeTooltip = new ArrayList<>(tooltip);
+        upgradeTooltip.add(vessel.isExpansionLocked()
+                ? Component.translatable("gui.soul_harvest.wisdom_vessel.rune_locked", ModConfig.wisdomVesselMaxLevel).withStyle(ChatFormatting.RED)
+                : Component.translatable("gui.soul_harvest.wisdom_vessel.rune_removable").withStyle(ChatFormatting.GRAY));
+
+        return upgradeTooltip;
     }
 
     @Override
@@ -97,6 +134,14 @@ public class WisdomVesselScreen extends AbstractContainerScreen<WisdomVesselCont
     private IconButton addButton(int x, int y, Widgets.WidgetInfo icon, String key, int buttonId) {
         Component message = Component.translatable("gui.soul_harvest.wisdom_vessel." + key);
         return addRenderableWidget(new IconButton(leftPos + x, topPos + y, icon, message, () -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId, buttonId)));
+    }
+
+    private boolean isUpgradeSlot(Slot slot) {
+        return (slot != null) && (slot.container == vessel) && (slot.getContainerSlot() == WisdomVesselBlockEntity.UPGRADE_SLOT);
+    }
+
+    private String formatExperience(int fluidAmount) {
+        return String.format("%,d", fluidAmount / WisdomVesselBlockEntity.MB_PER_EXPERIENCE);
     }
 
     private void updateButtons() {

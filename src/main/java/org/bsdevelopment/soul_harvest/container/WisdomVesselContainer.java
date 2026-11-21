@@ -12,6 +12,7 @@ import org.bsdevelopment.soul_harvest.blocks.entity.WisdomVesselBlockEntity;
 import org.bsdevelopment.soul_harvest.container.base.BaseInventoryContainer;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModContainers;
+import org.bsdevelopment.soul_harvest.registry.ModItems;
 import org.bsdevelopment.soul_harvest.utilities.ModUtilities;
 
 public class WisdomVesselContainer extends BaseInventoryContainer<WisdomVesselBlockEntity> {
@@ -35,6 +36,22 @@ public class WisdomVesselContainer extends BaseInventoryContainer<WisdomVesselBl
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
+            }
+        });
+        addSlot(new Slot(blockEntity, WisdomVesselBlockEntity.UPGRADE_SLOT, 145, 72) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(ModItems.EXPANSION_RUNE.get());
+            }
+
+            @Override
+            public boolean mayPickup(Player player) {
+                return !blockEntity.isExpansionLocked() || getCarried().is(ModItems.EXPANSION_RUNE.get());
+            }
+
+            @Override
+            public int getMaxStackSize(ItemStack stack) {
+                return Math.min(super.getMaxStackSize(stack), WisdomVesselBlockEntity.MAX_EXPANSION_RUNES);
             }
         });
 
@@ -66,6 +83,13 @@ public class WisdomVesselContainer extends BaseInventoryContainer<WisdomVesselBl
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack carried, Slot slot) {
+        if ((slot.container == blockEntity) && (slot.getContainerSlot() == WisdomVesselBlockEntity.UPGRADE_SLOT)) return false;
+
+        return super.canTakeItemForPickAll(carried, slot);
     }
 
     @Override

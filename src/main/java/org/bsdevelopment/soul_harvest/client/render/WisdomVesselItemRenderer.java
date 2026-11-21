@@ -20,7 +20,7 @@ public class WisdomVesselItemRenderer implements SpecialModelRenderer<Float> {
     @Override
     public Float extractArgument(ItemStack stack) {
         SimpleFluidContent contents = stack.getOrDefault(ModComponents.FLUID_CONTENTS.get(), SimpleFluidContent.EMPTY);
-        return Math.min(1f, (float) contents.getAmount() / WisdomVesselBlockEntity.getCapacity());
+        return Math.min(1f, (float) contents.getAmount() / WisdomVesselBlockEntity.getCapacity(stack.getOrDefault(ModComponents.EXPANSION_RUNES.get(), 0)));
     }
 
     @Override

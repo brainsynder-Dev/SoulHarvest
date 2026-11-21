@@ -52,6 +52,7 @@ public class ModLanguageProvider extends LanguageProvider {
         addItem(ModItems.BANE_SOUL_RUNE.get(), "Bane Soul Rune", new Translation("description", "Deals extra damage to spiders and other arthropods"));
         addItem(ModItems.SPEED_SOUL_RUNE.get(), "Speed Soul Rune", new Translation("description", "Attacks and kills mobs faster"));
         addItem(ModItems.WISDOM_SOUL_RUNE.get(), "Wisdom Soul Rune", new Translation("description", "Slain mobs will drop more experience"));
+        addItem(ModItems.EXPANSION_RUNE.get(), "Expansion Rune", new Translation("description", "Doubles the max level a Wisdom Vessel can store. Each extra rune doubles it again"));
 
         addBlock(ModBlocks.ALTAR_BRICKS.getBlock(), "Altar Bricks");
         addBlock(ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), "Soul Altar Bricks");
@@ -70,7 +71,10 @@ public class ModLanguageProvider extends LanguageProvider {
                 new Translation("description.1", "Collects the drops from the Soul Harvest Altar."),
                 new Translation("description.2", "Exports it all into the storage container it's placed on.")
         );
-        addBlock(ModBlocks.WISDOM_VESSEL.getBlock(), "Wisdom Vessel");
+        addBlock(ModBlocks.WISDOM_VESSEL.getBlock(), "Wisdom Vessel",
+                new Translation("stored", "Stored: %s XP (%s Levels)"),
+                new Translation("expansion_runes", "Expansion Runes: %s")
+        );
         addBlock(ModBlocks.SOUL_ASH.getBlock(), "Soul Ash",
                 new Translation("description.1", "Spawns hostile mobs when awakened as a 1x1, 3x3, 5x5, 7x7 or 9x9"),
                 new Translation("description.2", "Right click the center block with 4 Soul Crystals to activate the blocks"),
@@ -233,6 +237,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add("gui.soul_harvest.wisdom_vessel.take_1", "Take 1 level");
         add("gui.soul_harvest.wisdom_vessel.take_10", "Take 10 levels");
         add("gui.soul_harvest.wisdom_vessel.take_all", "Take all XP");
+        add("gui.soul_harvest.wisdom_vessel.upgrade_slot", "Expansion Runes");
+        add("gui.soul_harvest.wisdom_vessel.capacity", "%s / %s XP");
+        add("gui.soul_harvest.wisdom_vessel.base_capacity", "Base %s levels x%s");
+        add("gui.soul_harvest.wisdom_vessel.rune_locked", "Locked in: stored XP is over the %s level base capacity");
+        add("gui.soul_harvest.wisdom_vessel.rune_removable", "Can be removed");
     }
 
     private void addTranslations(String descriptionId, Translation... translations) {

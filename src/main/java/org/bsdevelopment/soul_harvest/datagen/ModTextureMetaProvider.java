@@ -81,6 +81,7 @@ public class ModTextureMetaProvider implements DataProvider {
         animate("item/soul_flame_rune", 3, true);
         animate("item/speed_soul_rune", 3, true);
         animate("item/wisdom_soul_rune", 3, true);
+        animate("item/expansion_rune", 3, true);
         animate("item/looting_soul_rune", 3, true);
         animate("item/beheading_soul_rune", 3, true);
         animate("item/soul_wand_linked", 2, true);

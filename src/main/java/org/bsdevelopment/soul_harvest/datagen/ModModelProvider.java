@@ -126,7 +126,7 @@ public class ModModelProvider extends ModelProvider {
 
         List.of(ModItems.SOUL_CRYSTAL.get(), ModItems.SOUL_STEEL_INGOT.get(), ModItems.SOUL_STEEL_NUGGET.get(), ModItems.SOUL_SAWBLADE.get(), ModItems.SOUL_EMBER.get(),
                 ModItems.SOUL_ASH_SEED.get(), ModItems.SOUL_BLOOM_SEED.get(), ModItems.BLANK_SOUL_RUNE.get(), ModItems.LOOTING_SOUL_RUNE.get(), ModItems.SMITE_SOUL_RUNE.get(), ModItems.SHARPNESS_SOUL_RUNE.get(),
-                ModItems.SOUL_FLAME_RUNE.get(), ModItems.BEHEADING_SOUL_RUNE.get(), ModItems.BANE_SOUL_RUNE.get(), ModItems.SPEED_SOUL_RUNE.get(), ModItems.WISDOM_SOUL_RUNE.get()
+                ModItems.SOUL_FLAME_RUNE.get(), ModItems.BEHEADING_SOUL_RUNE.get(), ModItems.BANE_SOUL_RUNE.get(), ModItems.SPEED_SOUL_RUNE.get(), ModItems.WISDOM_SOUL_RUNE.get(), ModItems.EXPANSION_RUNE.get()
         ).forEach(item -> itemModels.generateFlatItem(item, ModelTemplates.FLAT_ITEM));
 
         itemModels.generateFlatItem(ModItems.SOUL_PROBE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);

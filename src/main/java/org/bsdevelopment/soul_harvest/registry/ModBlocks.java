@@ -18,6 +18,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.bsdevelopment.soul_harvest.blocks.*;
 import org.bsdevelopment.soul_harvest.blocks.base.RedstonePoweredBlock;
 import org.bsdevelopment.soul_harvest.blocks.entity.*;
+import org.bsdevelopment.soul_harvest.items.WisdomVesselItem;
 import org.bsdevelopment.soul_harvest.items.base.BlockItemHandler;
 import org.bsdevelopment.soul_harvest.utilities.BlockRegistration;
 
@@ -112,10 +113,10 @@ public class ModBlocks {
             LootExtractorBlockEntity::new
     );
 
-    public static final BlockRegistration<WisdomVesselBlock, BlockItemHandler, WisdomVesselBlockEntity> WISDOM_VESSEL = new BlockRegistration<>(
+    public static final BlockRegistration<WisdomVesselBlock, WisdomVesselItem, WisdomVesselBlockEntity> WISDOM_VESSEL = new BlockRegistration<>(
             "wisdom_vessel",
             props -> new WisdomVesselBlock(props.mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 6f).noOcclusion().sound(SoundType.GLASS)),
-            BlockItemHandler::new,
+            WisdomVesselItem::new,
             WisdomVesselBlockEntity::new
     );
 
