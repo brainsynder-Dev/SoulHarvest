@@ -39,6 +39,7 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(block).apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
                         .include(ModComponents.FLUID_CONTENTS.get())
+                        .include(ModComponents.EXPANSION_RUNES.get())
                 ))))
         );
     }

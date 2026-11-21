@@ -1,5 +1,6 @@
 ## 26.1.2-5
 - feat: add Expansion Rune upgrade slot to the Wisdom Vessel, doubling max level per rune
+- fix: keep Expansion Runes when the block is broken
 
 ## 26.1.2-4
 - feat: add Soul Ember fuel item, crafted or made by dropping 4x coal into Wraithfire
