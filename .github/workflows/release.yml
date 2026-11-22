@@ -38,8 +38,11 @@ jobs:
             exit 1
           fi
 
+      - name: Generate data
+        run: ./gradlew runData
+
       - name: Build and publish the mod
-        run: ./gradlew runData build publishMods
+        run: ./gradlew build publishMods
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
