@@ -46,7 +46,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("CIC")
                 .pattern("IXI")
                 .pattern("CIC")
-                .define('C', Items.COAL)
+                .define('C', ItemTags.COALS)
                 .define('I', Items.IRON_INGOT)
                 .define('X', ModItems.SOUL_CRYSTAL.get())
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
