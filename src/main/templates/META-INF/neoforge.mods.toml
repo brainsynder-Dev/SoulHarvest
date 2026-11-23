@@ -32,3 +32,10 @@ type = "optional"
 versionRange = "[11,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "thaumaturge"
+type = "optional"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

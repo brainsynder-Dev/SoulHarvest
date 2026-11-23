@@ -6,6 +6,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import org.bsdevelopment.soul_harvest.blocks.entity.SoulHarvestAltarBlockEntity;
+import org.bsdevelopment.soul_harvest.hooks.thaumaturge.ThaumaturgeHook;
 import org.bsdevelopment.soul_harvest.utilities.fakeplayer.CustomFakePlayer;
 
 public class SoulHarvestAltarListener {
@@ -15,6 +16,7 @@ public class SoulHarvestAltarListener {
         if (altar == null) return;
 
         altar.collectDrops(event.getEntity(), event.getDrops());
+        ThaumaturgeHook.voidAspectOrbs(event.getEntity());
         event.getDrops().clear();
         event.setCanceled(true);
     }
