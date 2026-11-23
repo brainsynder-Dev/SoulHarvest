@@ -38,6 +38,8 @@ public class ModConfig {
     public static int wisdomVesselMaxLevel;
     public static boolean altarAbsorbItems;
     public static int maxItemsPerLine;
+    public static boolean voidAspectOrbs;
+    public static boolean voidVengeanceSpirits;
 
     static {
         BAKE_ACTIONS = new ArrayList<>();
@@ -111,6 +113,18 @@ public class ModConfig {
         bind(builder
                 .comment("Maximum items displayed per line in Jade tooltips.")
                 .defineInRange("items_per_line", 10, 0, 20), value -> maxItemsPerLine = value);
+        builder.pop();
+
+        builder.push("thaumaturge_support");
+        bind(builder
+                .comment("Should Aspect Orbs from Thaumaturge be removed when a mob is killed by the Soul Harvest Altar?")
+                .define("void_aspect_orbs", true), value -> voidAspectOrbs = value);
+        builder.pop();
+
+        builder.push("evilcraft_support");
+        bind(builder
+                .comment("Should Vengeance Spirits from EvilCraft be removed when a mob is killed by the Soul Harvest Altar?")
+                .define("void_vengeance_spirits", true), value -> voidVengeanceSpirits = value);
         builder.pop();
 
         builder.push("altar_runes");

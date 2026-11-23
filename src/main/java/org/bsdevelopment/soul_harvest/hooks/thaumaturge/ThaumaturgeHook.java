@@ -5,12 +5,15 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import org.bsdevelopment.soul_harvest.config.ModConfig;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ThaumaturgeHook {
     public static void voidAspectOrbs(LivingEntity entity) {
+        if (!ModConfig.voidAspectOrbs) return;
+
         Optional<EntityType<?>> aspectOrbType = BuiltInRegistries.ENTITY_TYPE.getOptional(Identifier.fromNamespaceAndPath("thaumaturge", "aspect_orb"));
         if (aspectOrbType.isEmpty()) return;
 
