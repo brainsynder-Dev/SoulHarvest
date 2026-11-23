@@ -14,6 +14,7 @@ import org.bsdevelopment.soul_harvest.container.base.BaseInventoryContainer;
 import org.bsdevelopment.soul_harvest.container.base.GhostSlotContainer;
 import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModContainers;
+import org.bsdevelopment.soul_harvest.registry.ModItems;
 
 public class LootExtractorContainer extends BaseInventoryContainer<LootExtractorBlockEntity> implements GhostSlotContainer {
     public static final int BUFFER_START = 0;
@@ -86,6 +87,11 @@ public class LootExtractorContainer extends BaseInventoryContainer<LootExtractor
 
         ItemStack carried = getCarried();
         Slot slot = slots.get(slotId);
+        if ((input == ContainerInput.PICKUP) && (button == 1) && carried.isEmpty() && slot.getItem().is(ModItems.FILTER.get())) {
+            if (!player.level().isClientSide()) FilterContainer.open(player, pos, slotId - FILTER_START);
+            return;
+        }
+
         slot.set(input == ContainerInput.PICKUP && !carried.isEmpty() ? carried.copyWithCount(1) : ItemStack.EMPTY);
     }
 

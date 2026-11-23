@@ -4,6 +4,7 @@
 - fix: Thaumaturge aspect orbs are voided when a mob is killed by the Soul Harvest Altar
 - feat: EvilCraft support to stop Vengeance Spirits from spawning on Soul Harvest Altar kills
 - feat: config toggle for voiding Aspect Orbs and preventing Vengeance Spirits
+- feat: right click editing for Filters in Loot Extractor filter slots
 
 ## 26.1.2-5
 - feat: add Expansion Rune upgrade slot to the Wisdom Vessel, doubling max level per rune

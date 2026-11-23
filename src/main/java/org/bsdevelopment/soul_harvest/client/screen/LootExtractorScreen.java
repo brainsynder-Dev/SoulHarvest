@@ -1,5 +1,6 @@
 package org.bsdevelopment.soul_harvest.client.screen;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
@@ -14,6 +15,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import org.bsdevelopment.soul_harvest.blocks.entity.LootExtractorBlockEntity;
 import org.bsdevelopment.soul_harvest.client.screen.widgets.IconButton;
 import org.bsdevelopment.soul_harvest.client.screen.widgets.Widgets;
@@ -21,6 +23,10 @@ import org.bsdevelopment.soul_harvest.container.LootExtractorContainer;
 import org.bsdevelopment.soul_harvest.network.PacketHandler;
 import org.bsdevelopment.soul_harvest.network.LootExtractorSettingPayload;
 import org.bsdevelopment.soul_harvest.registry.ModConstants;
+import org.bsdevelopment.soul_harvest.registry.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LootExtractorScreen extends AbstractContainerScreen<LootExtractorContainer> {
     private IconButton modeButton;
@@ -150,6 +156,18 @@ public class LootExtractorScreen extends AbstractContainerScreen<LootExtractorCo
         if (hoveredSlot != null && menu.isGhostSlot(hoveredSlot.index) && !hoveredSlot.hasItem() && menu.getCarried().isEmpty()) guiGraphics.setTooltipForNextFrame(font, translate("filter_slot"), mouseX, mouseY);
         if (isOver(mouseX, mouseY, 153, 56, 12, 5)) guiGraphics.setTooltipForNextFrame(font, translate("priority_increase"), mouseX, mouseY);
         if (isOver(mouseX, mouseY, 153, 62, 12, 6)) guiGraphics.setTooltipForNextFrame(font, translate("priority_decrease"), mouseX, mouseY);
+    }
+
+    @Override
+    protected List<Component> getTooltipFromContainerItem(ItemStack itemStack) {
+        List<Component> tooltip = super.getTooltipFromContainerItem(itemStack);
+        if (hoveredSlot == null || !menu.isGhostSlot(hoveredSlot.index) || !itemStack.is(ModItems.FILTER.get())) return tooltip;
+
+        List<Component> filterTooltip = new ArrayList<>(tooltip);
+        filterTooltip.add(translate("filter_remove").copy().withStyle(ChatFormatting.GRAY));
+        filterTooltip.add(translate("filter_edit").copy().withStyle(ChatFormatting.GRAY));
+
+        return filterTooltip;
     }
 
     @Override

@@ -1,26 +1,33 @@
 package org.bsdevelopment.soul_harvest.container;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import org.bsdevelopment.soul_harvest.blocks.entity.LootExtractorBlockEntity;
 import org.bsdevelopment.soul_harvest.component.FilterData;
 import org.bsdevelopment.soul_harvest.container.base.BaseContainer;
 import org.bsdevelopment.soul_harvest.container.base.GhostSlotContainer;
 import org.bsdevelopment.soul_harvest.items.FilterItem;
+import org.bsdevelopment.soul_harvest.registry.ModBlocks;
 import org.bsdevelopment.soul_harvest.registry.ModComponents;
 import org.bsdevelopment.soul_harvest.registry.ModContainers;
 import org.bsdevelopment.soul_harvest.registry.ModItems;
 import org.bsdevelopment.soul_harvest.utilities.ItemFilterPredicates;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -33,19 +40,25 @@ public class FilterContainer extends BaseContainer implements GhostSlotContainer
     public static final int PLAYER_START = FilterData.SIZE;
 
     private final Player player;
-    private final InteractionHand hand;
+    private final @Nullable InteractionHand hand;
+    private final @Nullable BlockPos extractorPos;
+    private final @Nullable SimpleContainer extractorFilter;
+    private final int filterIndex;
     private final int lockedSlot;
     private final SimpleContainer ghostSlots = new SimpleContainer(FilterData.SIZE);
 
     public FilterContainer(int windowId, Inventory playerInventory, FriendlyByteBuf extraData) {
-        this(windowId, playerInventory, extraData.readEnum(InteractionHand.class));
+        this(windowId, playerInventory, extraData.readNullable(buffer -> buffer.readEnum(InteractionHand.class)), extraData.readNullable(buffer -> buffer.readBlockPos()), extraData.readVarInt());
     }
 
-    public FilterContainer(int windowId, Inventory playerInventory, InteractionHand hand) {
+    private FilterContainer(int windowId, Inventory playerInventory, @Nullable InteractionHand hand, @Nullable BlockPos extractorPos, int filterIndex) {
         super(ModContainers.FILTER.get(), windowId);
         this.player = playerInventory.player;
         this.hand = hand;
+        this.extractorPos = extractorPos;
+        this.filterIndex = filterIndex;
         this.lockedSlot = hand == InteractionHand.MAIN_HAND ? PLAYER_START + 27 + playerInventory.getSelectedSlot() : -1;
+        this.extractorFilter = (extractorPos != null) && (player.level().getBlockEntity(extractorPos) instanceof LootExtractorBlockEntity extractor) ? extractor.getFilter() : null;
 
         FilterData data = getData();
         for (int index = 0; index < FilterData.SIZE; index++) {
@@ -63,9 +76,36 @@ public class FilterContainer extends BaseContainer implements GhostSlotContainer
             });
         }
         addPlayerSlots(playerInventory, 8, 124);
+        if (extractorFilter != null) addSlot(new Slot(extractorFilter, filterIndex, 0, 0) {
+            @Override
+            public boolean isActive() {
+                return false;
+            }
+
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public boolean mayPickup(Player player) {
+                return false;
+            }
+        });
+    }
+
+    public static void open(Player player, InteractionHand hand) {
+        openMenu(player, hand, null, -1);
+    }
+
+    public static void open(Player player, BlockPos extractorPos, int filterIndex) {
+        openMenu(player, null, extractorPos, filterIndex);
     }
 
     public ItemStack getFilter() {
+        if (extractorFilter != null) return extractorFilter.getItem(filterIndex);
+        if (hand == null) return ItemStack.EMPTY;
+
         return player.getItemInHand(hand);
     }
 
@@ -98,6 +138,8 @@ public class FilterContainer extends BaseContainer implements GhostSlotContainer
             case SETTING_DATA -> applyDataFilter(data, slot, text);
             default -> {}
         }
+
+        saveFilter();
     }
 
     @Override
@@ -148,7 +190,18 @@ public class FilterContainer extends BaseContainer implements GhostSlotContainer
 
     @Override
     public boolean stillValid(Player player) {
-        return getFilter().is(ModItems.FILTER.get());
+        if (!getFilter().is(ModItems.FILTER.get())) return false;
+        if (extractorPos == null) return true;
+
+        return stillValid(ContainerLevelAccess.create(player.level(), extractorPos), player, ModBlocks.LOOT_EXTRACTOR.getBlock());
+    }
+
+    private static void openMenu(Player player, @Nullable InteractionHand hand, @Nullable BlockPos extractorPos, int filterIndex) {
+        player.openMenu(new SimpleMenuProvider((windowId, playerInventory, menuPlayer) -> new FilterContainer(windowId, playerInventory, hand, extractorPos, filterIndex), Component.translatable("gui.soul_harvest.filter.title")), buffer -> {
+            buffer.writeNullable(hand, (output, value) -> output.writeEnum(value));
+            buffer.writeNullable(extractorPos, (output, value) -> output.writeBlockPos(value));
+            buffer.writeVarInt(filterIndex);
+        });
     }
 
     private void setGhost(int index, ItemStack stack) {
@@ -158,6 +211,11 @@ public class FilterContainer extends BaseContainer implements GhostSlotContainer
 
         Optional<ItemStackTemplate> template = copy.isEmpty() ? Optional.empty() : Optional.of(ItemStackTemplate.fromNonEmptyStack(copy));
         setData(getData().withEntry(index, new FilterData.Entry(template, Optional.empty(), "")));
+        saveFilter();
+    }
+
+    private void saveFilter() {
+        if (extractorFilter != null) extractorFilter.setChanged();
     }
 
     private void applyTag(FilterData data, int slot, String tagId) {

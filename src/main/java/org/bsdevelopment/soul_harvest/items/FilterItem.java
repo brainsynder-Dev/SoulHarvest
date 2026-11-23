@@ -4,7 +4,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,7 +40,7 @@ public class FilterItem extends BaseItem {
             return InteractionResult.SUCCESS;
         }
 
-        player.openMenu(new SimpleMenuProvider((windowId, playerInventory, menuPlayer) -> new FilterContainer(windowId, playerInventory, hand), Component.translatable("gui.soul_harvest.filter.title")), buffer -> buffer.writeEnum(hand));
+        FilterContainer.open(player, hand);
         return InteractionResult.SUCCESS;
     }
 

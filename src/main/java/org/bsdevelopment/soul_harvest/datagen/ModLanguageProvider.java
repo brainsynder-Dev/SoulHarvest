@@ -194,6 +194,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("gui.soul_harvest.loot_extractor.priority_increase", "Raise priority");
         add("gui.soul_harvest.loot_extractor.waiting", "Waiting to export");
         add("gui.soul_harvest.loot_extractor.filter_slot", "Click with an item to copy it");
+        add("gui.soul_harvest.loot_extractor.filter_edit", "Right click to edit this filter");
+        add("gui.soul_harvest.loot_extractor.filter_remove", "Left click to remove this filter");
         add("gui.soul_harvest.loot_extractor.whitelist", "Whitelist");
         add("gui.soul_harvest.loot_extractor.whitelist.description", "Only listed items are exported");
         add("gui.soul_harvest.loot_extractor.blacklist", "Blacklist");
