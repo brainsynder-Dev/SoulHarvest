@@ -116,7 +116,7 @@ public class SoulHarvestAltarBlockEntity extends InventoryBlockEntity implements
     public void absorbItems(ServerLevel level) {
         if (!ModConfig.altarAbsorbItems || level.getGameTime() % 10 != 0) return;
 
-        List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition).inflate(4), item -> item.isAlive() && !item.hasPickUpDelay());
+        List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition).inflate(1), item -> item.isAlive() && !item.hasPickUpDelay());
         if (items.isEmpty()) return;
 
         items.forEach(item -> {
