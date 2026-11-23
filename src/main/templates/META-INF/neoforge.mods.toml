@@ -39,3 +39,10 @@ type = "optional"
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "evilcraft"
+type = "optional"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
