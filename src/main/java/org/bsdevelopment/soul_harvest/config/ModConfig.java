@@ -105,7 +105,7 @@ public class ModConfig {
 
         builder.push("altar");
         bind(builder
-                .comment("Should the Soul Harvest Altar absorb dropped items within 4 blocks into its internal storage?")
+                .comment("Should the Soul Harvest Altar absorb dropped items in the blocks next to it into its internal storage?")
                 .define("absorb_items", true), value -> altarAbsorbItems = value);
         builder.pop();
 
