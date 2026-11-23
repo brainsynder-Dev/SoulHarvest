@@ -36,10 +36,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("SLS")
                 .pattern("LAL")
                 .pattern("SLS")
-                .define('S', Items.SOUL_SOIL)
+                .define('S', ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 .define('L', Items.LAPIS_LAZULI)
                 .define('A', Items.AMETHYST_SHARD)
-                .unlockedBy("has_soul_soil", has(Items.SOUL_SOIL))
+                .unlockedBy("has_soul_soil", has(ItemTags.SOUL_FIRE_BASE_BLOCKS))
                 .save(output);
 
         shaped(RecipeCategory.MISC, ModItems.SOUL_STEEL_INGOT.get(), 4)
@@ -79,7 +79,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('R', Items.ROTTEN_FLESH)
                 .define('B', Items.BONE)
                 .define('X', ModItems.SOUL_CRYSTAL.get())
-                .define('S', Items.SOUL_SOIL)
+                .define('S', ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
 
@@ -90,7 +90,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('W', Items.WHEAT_SEEDS)
                 .define('G', Items.BONE_MEAL)
                 .define('X', ModItems.SOUL_CRYSTAL.get())
-                .define('S', Items.SOUL_SOIL)
+                .define('S', ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
     }
@@ -141,8 +141,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("BSB")
                 .pattern("BBB")
                 .define('B', Items.POLISHED_BLACKSTONE_BRICKS)
-                .define('S', Items.SOUL_SOIL)
-                .unlockedBy("has_soul_soil", has(Items.SOUL_SOIL))
+                .define('S', ItemTags.SOUL_FIRE_BASE_BLOCKS)
+                .unlockedBy("has_soul_soil", has(ItemTags.SOUL_FIRE_BASE_BLOCKS))
                 .save(output);
 
         shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SOUL_ALTAR_BRICKS.getBlock(), 8)
@@ -358,7 +358,7 @@ public class ModRecipeProvider extends RecipeProvider {
         shapeless(RecipeCategory.MISC, ModItems.SOUL_EMBER.get(), 4)
                 .requires(Items.COAL, 4)
                 .requires(ModItems.SOUL_CRYSTAL.get())
-                .requires(Items.SOUL_SOIL)
+                .requires(ItemTags.SOUL_FIRE_BASE_BLOCKS)
                 .unlockedBy("has_soul_crystal", has(ModItems.SOUL_CRYSTAL.get()))
                 .save(output);
     }

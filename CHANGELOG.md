@@ -1,5 +1,6 @@
 ## 26.1.2-6
 - refactor: allow Charcoal in the Soul Crystal recipe using the coals tag
+- refactor: allow recipes to accept Soul Sand or Soul Soil in place of only Soul Soil
 
 ## 26.1.2-5
 - feat: add Expansion Rune upgrade slot to the Wisdom Vessel, doubling max level per rune
